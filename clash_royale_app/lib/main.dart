@@ -1,40 +1,29 @@
-import 'package:clash_royale_app/beerApi.dart';
-import 'package:clash_royale_app/models/APIdata.dart';
-import 'package:clash_royale_app/screens/widgets/beerwidget.dart';
+import 'package:clash_royale_app/APIdata.dart';
+import 'package:clash_royale_app/models/APIseries.dart';
+import 'package:clash_royale_app/screens/widgets/serieswidget.dart';
+import 'package:clash_royale_app/screens/mainmenu.dart'
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const BeerApp());
+  runApp(const IMDbApp());
 }
 
-class BeerApp extends StatelessWidget {
-  const BeerApp({super.key});
+class IMDbApp extends StatelessWidget {
+  const IMDbApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: FutureBuilder(
-          future: apiLoadUsers(),
-          builder: (
-            BuildContext context,
-            AsyncSnapshot<List<Beer>> snapshot,
-          ) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final userList = snapshot.data!;
-            return ListView.builder(
-              itemCount: userList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return BeerListItem(beer: userList[index]);
-              },
-            );
-          },
+      title: 'TOP 100 BEST SERIES',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
+        textTheme: TextTheme(
+          bodyText2: TextStyle(color: Colors.white),
         ),
       ),
+      home: HomePage(),
     );
   }
 }
