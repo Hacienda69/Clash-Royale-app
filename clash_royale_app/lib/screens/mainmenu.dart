@@ -9,17 +9,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   List<Series> _series;
-    bool _isLoading = true;
+  List<Series> _series = []; // Inicializa _series con una lista vacía
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    SeriesApi.apiLoadSeries();
+    getSeries(); // Llama a la función para cargar las series
   }
 
-   Future<void> geTSeries() async {
-    _series = await SeriesApi.getRecipe();
+  Future<void> getSeries() async {
+    // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
+    _series = await SeriesApi.apiLoadSeries();
     setState(() {
       _isLoading = false;
     });
@@ -28,27 +29,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //Icon(Icons.movies),
-              SizedBox(width: 10),
-              Text('TOP 100 SERIES')
-            ],
-          ),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //Icon(Icons.movies),
+            SizedBox(width: 10),
+            Text('TOP 100 SERIES')
+          ],
         ),
-        body: _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: _series.length,
-                itemBuilder: (context, index) {
-                  return SeriesListItem(
-                      rank: _series[index].rank,
-                      title: _series[index].title,
-                      rating: _series[index].rating.toString(),
-                      image: _series[index].image);
-                },
-              ));
+      ),
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: _series.length,
+              itemBuilder: (context, index) {
+                return SeriesListItem(
+                  rank: _series[index].rank,
+                  title: _series[index].title,
+                  rating: _series[index].rating.toString(),
+                  image: _series[index].image,
+                );
+              },
+            ),
+    );
   }
 }
