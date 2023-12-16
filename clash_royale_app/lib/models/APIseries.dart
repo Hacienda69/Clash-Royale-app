@@ -4,7 +4,7 @@ class Series {
   final double rating;
   final String image;
 
-  Series({this.rank, this.title, this.rating, this.image});
+  Series({required this.rank, required this.title, required this.rating, required this.image,});
 
   factory Series.fromJson(Map<String, dynamic> json){
       return Series(
@@ -12,7 +12,7 @@ class Series {
         title: json["title"] as String,
         rating: json["rating"] as double,
         image: json["image"] as String,
-    )
+    );
   }
   
   static List<Series> seriesFromSnapshot(List snapshot){

@@ -7,11 +7,12 @@ class SeriesListItem extends StatelessWidget {
   final String image;
   final String rating;
   SeriesListItem({
-    @required this.rank,
-    @required this.title,
-    @required this.image,
-    @required this.rating,
+    required this.rank,
+    required this.title,
+    required this.image,
+    required this.rating,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,7 +97,7 @@ class SeriesListItem extends StatelessWidget {
                         size: 18,
                       ),
                       SizedBox(width: 7),
-                      Text(rank),
+                      Text(rank.toString()),
                     ],
                   ),
                 )

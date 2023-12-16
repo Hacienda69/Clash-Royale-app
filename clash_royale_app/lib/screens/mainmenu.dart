@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:clash_royale_app/models/serieswidget.dart';
+import 'package:clash_royale_app/screens/widgets/serieswidget.dart';
+import 'package:clash_royale_app/APIdata.dart';
+import 'package:clash_royale_app/models/APIseries.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,13 +13,13 @@ class _HomePageState extends State<HomePage> {
     bool _isLoading = true;
 
   @override
-   void initState() {
+  void initState() {
     super.initState();
-    apiLoadSeries();
+    SeriesApi.apiLoadSeries();
   }
 
-   Future<void> getRecipes() async {
-    _series = await RecipeApi.getRecipe();
+   Future<void> geTSeries() async {
+    _series = await SeriesApi.getRecipe();
     setState(() {
       _isLoading = false;
     });
@@ -30,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.movies),
+              //Icon(Icons.movies),
               SizedBox(width: 10),
               Text('TOP 100 SERIES')
             ],
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             : ListView.builder(
                 itemCount: _series.length,
                 itemBuilder: (context, index) {
-                  return RecipeCard(
+                  return SeriesListItem(
                       rank: _series[index].rank,
                       title: _series[index].title,
                       rating: _series[index].rating.toString(),

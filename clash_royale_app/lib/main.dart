@@ -1,7 +1,7 @@
 import 'package:clash_royale_app/APIdata.dart';
 import 'package:clash_royale_app/models/APIseries.dart';
 import 'package:clash_royale_app/screens/widgets/serieswidget.dart';
-import 'package:clash_royale_app/screens/mainmenu.dart'
+import 'package:clash_royale_app/screens/mainmenu.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class IMDbApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: Colors.white,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           bodyText2: TextStyle(color: Colors.white),
         ),
       ),
