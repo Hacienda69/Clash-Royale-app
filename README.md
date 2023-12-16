@@ -1,2 +1,2 @@
-# Clash-Royale-app
-App made with Dart in Flutter using the Clash Royale API for a college assignment.
+# WatchWeb
+App made with Dart in Flutter using the IMDb TOP 100 Movies API by RapiHub (https://rapidapi.com/rapihub-rapihub-default/api/imdb-top-100-movies/) for a college assignment.
