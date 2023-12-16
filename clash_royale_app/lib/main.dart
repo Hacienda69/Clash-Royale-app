@@ -14,15 +14,7 @@ class IMDbApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TOP 100 BEST SERIES',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Colors.white,
-        textTheme: const TextTheme(
-          bodyText2: TextStyle(color: Colors.white),
-        ),
-      ),
       home: HomePage(),
     );
   }

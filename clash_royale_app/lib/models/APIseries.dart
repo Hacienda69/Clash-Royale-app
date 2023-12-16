@@ -15,8 +15,7 @@ class Series {
     return Series(
       rank: json["rank"] as int,
       title: json["title"] as String,
-      rating:
-          json["rating"], // No necesita ser convertido explícitamente a double
+      rating: json["rating"], // No necesita ser convertido explícitamente a double
       image: json["image"] as String,
     );
   }

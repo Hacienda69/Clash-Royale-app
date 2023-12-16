@@ -28,19 +28,37 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Color backGroundColor = const Color.fromARGB(255, 33, 33, 33);
+
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: Colors.black,
+        shadowColor: Colors.black,
+        elevation: 10,
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            //Icon(Icons.movies),
-            SizedBox(width: 10),
-            Text('TOP 100 SERIES')
+            Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 30,
+            ),
+            Icon(
+              Icons.abc,
+              color: Colors.white,
+              size: 50,
+            ),
+            Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 30,
+            ),
           ],
         ),
       ),
+      backgroundColor: backGroundColor,
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: _series.length,
               itemBuilder: (context, index) {
