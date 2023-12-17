@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SeriesListItem extends StatelessWidget {
+class ListItem extends StatelessWidget {
   final int rank;
   final String title;
   final String image;
   final String rating;
 
-  const SeriesListItem({
+  const ListItem({
     super.key,
     required this.rank,
     required this.title,
     required this.image,
-    this.rating = " ",
+    required this.rating,
   });
 
   @override
@@ -40,6 +40,14 @@ class SeriesListItem extends StatelessWidget {
               image: NetworkImage(image),
               fit: BoxFit.cover,
             ),
+          ),
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 9,
           ),
         ),
         Container(

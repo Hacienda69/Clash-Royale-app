@@ -1,11 +1,11 @@
 class Series {
-  final int rank;
+  //final int rank;
   final String title;
   final num rating; // Cambiado a tipo num para aceptar tanto int como double
   final String image;
 
   Series({
-    required this.rank,
+    //required this.rank,
     required this.title,
     required this.rating,
     required this.image,
@@ -13,7 +13,7 @@ class Series {
 
   factory Series.fromJson(Map<String, dynamic> json) {
     return Series(
-      rank: json["rank"] as int,
+      //rank: json["rank"] as int,
       title: json["title"] as String,
       rating: json["rating"], // No necesita ser convertido explícitamente a double
       image: json["image"] as String,
@@ -28,6 +28,6 @@ class Series {
 
   @override
   String toString() {
-    return 'Series {rank: $rank, title: $title, rating: $rating, image: $image}';
+    return 'Series {title: $title, rating: $rating, image: $image}';
   }
 }

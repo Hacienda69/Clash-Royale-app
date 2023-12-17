@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'serieswidget.dart';
+import 'mediaWidget.dart';
 
 class ScrollableWidgetRow extends StatelessWidget{
   final List list;
@@ -10,13 +10,13 @@ class ScrollableWidgetRow extends StatelessWidget{
   Widget build(BuildContext context){
     return SizedBox(
       width: double.infinity,
-      height: 180,
+      height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: ScrollController(),
         itemCount: list.length,
         itemBuilder: (context, index){
-        return SeriesListItem(
+        return ListItem(
           rank: list[index].rank,
           title: list[index].title,
           image: list[index].image,
