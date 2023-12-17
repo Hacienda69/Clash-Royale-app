@@ -8,7 +8,7 @@ class SeriesApi {
     var uri = Uri.https('imdb-top-100-movies.p.rapidapi.com', '/series/');
 
     final response = await http.get(uri, headers: {
-      'X-RapidAPI-Key': '0b2becce6dmsh2f0d3f886257d27p1146cbjsnef6865783b09',
+      'X-RapidAPI-Key': '086950188fmsh8dc1350cb7827cdp15f693jsn05ee186933dc',
       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'
     });
 
@@ -29,7 +29,7 @@ class MoviesApi {
     var uri = Uri.https('imdb-top-100-movies.p.rapidapi.com');
 
     final response = await http.get(uri, headers: {
-      'X-RapidAPI-Key': '0b2becce6dmsh2f0d3f886257d27p1146cbjsnef6865783b09',
+      'X-RapidAPI-Key': '086950188fmsh8dc1350cb7827cdp15f693jsn05ee186933dc',
       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'
     });
 
