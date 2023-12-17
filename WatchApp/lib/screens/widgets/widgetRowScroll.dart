@@ -17,7 +17,6 @@ class ScrollableWidgetRow extends StatelessWidget{
         itemCount: list.length,
         itemBuilder: (context, index){
         return ListItem(
-          rank: list[index].rank,
           title: list[index].title,
           image: list[index].image,
           rating: list[index].rating.toString(),

@@ -1,4 +1,5 @@
 import 'package:WatchApp/models/APImovies.dart';
+import 'package:WatchApp/models/FilterByGenre.dart';
 import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/APIdata.dart';
@@ -57,10 +58,13 @@ class HomePageState extends State<HomePage> {
               color: Colors.white,
               size: 30,
             ),
-            Icon(
-              Icons.abc,
-              color: Colors.white,
-              size: 50,
+            Text(
+              "WatchWeb",
+              style: TextStyle(
+                color: Colors.yellow,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Icon(
               Icons.add,
@@ -77,6 +81,7 @@ class HomePageState extends State<HomePage> {
             children: [
               Section(title: "Top 100 series", list: _series),
               Section(title: "Top 100 movies", list: _movies),
+              Section(title: "Crime movies", list: FilterByGenre.filterMoviesByGenre("Crime", _movies),)
             ],
           )
     );

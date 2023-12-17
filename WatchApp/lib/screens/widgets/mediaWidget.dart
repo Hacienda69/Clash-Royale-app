@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
-  final int rank;
   final String title;
   final String image;
   final String rating;
 
   const ListItem({
     super.key,
-    required this.rank,
     required this.title,
     required this.image,
     required this.rating,
