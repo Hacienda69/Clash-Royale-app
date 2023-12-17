@@ -9,15 +9,21 @@ class ScrollableWidgetRow extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return ListView.builder(
-      itemCount: seriesList.length,
-      itemBuilder: (context, index){
-      return SeriesListItem(
-        rank: seriesList[index].rank,
-        title: seriesList[index].title,
-        image: seriesList[index].image,
-        rating: seriesList[index].rating.toString(),
-      );}
+    return SizedBox(
+      width: double.infinity,
+      height: 400,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        controller: ScrollController(),
+        itemCount: seriesList.length,
+        itemBuilder: (context, index){
+        return SeriesListItem(
+          rank: seriesList[index].rank,
+          title: seriesList[index].title,
+          image: seriesList[index].image,
+          rating: seriesList[index].rating.toString(),
+        );}
+      ),
     );
   }
 }

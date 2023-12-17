@@ -1,9 +1,7 @@
 import 'package:WatchApp/screens/widgets/widgetRowScroll.dart';
 import 'package:flutter/material.dart';
-import 'package:WatchApp/screens/widgets/serieswidget.dart';
 import 'package:WatchApp/APIdata.dart';
 import 'package:WatchApp/models/APIseries.dart';
-import 'package:flutter/rendering.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -63,7 +61,24 @@ class HomePageState extends State<HomePage> {
       backgroundColor: backGroundColor,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : ScrollableWidgetRow(seriesList: _series),
+          : Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.5),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Top 100 series", style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ),
+                ),
+                ScrollableWidgetRow(seriesList: _series),
+              ],
+            ),
+          ),
     );
   }
 }
