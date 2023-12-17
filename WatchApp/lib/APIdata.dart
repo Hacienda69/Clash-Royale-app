@@ -14,14 +14,10 @@ class SeriesApi {
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);
 
-      if (data != null && data is List) {
-        List<Series> seriesData =
-            data.map((item) => Series.fromJson(item)).toList();
-        return seriesData;
-      } else {
-        throw Exception('Failed to load series');
-      }
-    } else {
+      List<Series> seriesData =
+          data.map((item) => Series.fromJson(item)).toList();
+      return seriesData;
+        } else {
       throw Exception('Failed to load series: ${response.statusCode}');
     }
   }

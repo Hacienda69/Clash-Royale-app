@@ -1,6 +1,3 @@
-import 'package:WatchApp/APIdata.dart';
-import 'package:WatchApp/models/APIseries.dart';
-import 'package:WatchApp/screens/widgets/serieswidget.dart';
 import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +10,7 @@ class IMDbApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );

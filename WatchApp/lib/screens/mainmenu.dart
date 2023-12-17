@@ -1,14 +1,18 @@
+import 'package:WatchApp/screens/widgets/widgetRowScroll.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/screens/widgets/serieswidget.dart';
 import 'package:WatchApp/APIdata.dart';
 import 'package:WatchApp/models/APIseries.dart';
+import 'package:flutter/rendering.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   List<Series> _series = []; // Inicializa _series con una lista vacía
   bool _isLoading = true;
 
@@ -28,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Color backGroundColor = const Color.fromARGB(255, 33, 33, 33);
+    Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,17 +63,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: backGroundColor,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: _series.length,
-              itemBuilder: (context, index) {
-                return SeriesListItem(
-                  rank: _series[index].rank,
-                  title: _series[index].title,
-                  rating: _series[index].rating.toString(),
-                  image: _series[index].image,
-                );
-              },
-            ),
+          : ScrollableWidgetRow(seriesList: _series),
     );
   }
 }
