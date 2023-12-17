@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:WatchApp/models/APIseries.dart';
 import 'serieswidget.dart';
 
 class ScrollableWidgetRow extends StatelessWidget{
-  final List<Series> seriesList;
+  final List list;
 
-  const ScrollableWidgetRow({super.key, required this.seriesList,});
+  const ScrollableWidgetRow({super.key, required this.list,});
 
   @override
   Widget build(BuildContext context){
     return SizedBox(
       width: double.infinity,
-      height: 400,
+      height: 180,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: ScrollController(),
-        itemCount: seriesList.length,
+        itemCount: list.length,
         itemBuilder: (context, index){
         return SeriesListItem(
-          rank: seriesList[index].rank,
-          title: seriesList[index].title,
-          image: seriesList[index].image,
-          rating: seriesList[index].rating.toString(),
+          rank: list[index].rank,
+          title: list[index].title,
+          image: list[index].image,
+          rating: list[index].rating.toString(),
         );}
       ),
     );

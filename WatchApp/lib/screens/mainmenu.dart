@@ -1,4 +1,5 @@
-import 'package:WatchApp/screens/widgets/widgetRowScroll.dart';
+import 'package:WatchApp/models/APImovies.dart';
+import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/APIdata.dart';
 import 'package:WatchApp/models/APIseries.dart';
@@ -12,11 +13,14 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   List<Series> _series = []; // Inicializa _series con una lista vacía
-  bool _isLoading = true;
+  List<Movies> _movies = []; // Inicializa _movies con una lista vacía
+  bool _isLoadingSeries = true;
+  bool _isLoadingMovies = true;
 
   @override
   void initState() {
     super.initState();
+    getMovies();
     getSeries(); // Llama a la función para cargar las series
   }
 
@@ -24,7 +28,15 @@ class HomePageState extends State<HomePage> {
     // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
     _series = await SeriesApi.apiLoadSeries();
     setState(() {
-      _isLoading = false;
+      _isLoadingSeries = false;
+    });
+  }
+
+    Future<void> getMovies() async {
+    // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
+    _movies = await MoviesApi.apiLoadMovies();
+    setState(() {
+      _isLoadingMovies = false;
     });
   }
 
@@ -59,26 +71,14 @@ class HomePageState extends State<HomePage> {
         ),
       ),
       backgroundColor: backGroundColor,
-      body: _isLoading
+      body: _isLoadingSeries && _isLoadingMovies
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.5),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Top 100 series", style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),),
-                    ),
-                ),
-                ScrollableWidgetRow(seriesList: _series),
-              ],
-            ),
-          ),
+          : ListView(
+            children: [
+              Section(title: "Top 100 series", list: _series),
+              Section(title: "Top 100 movies", list: _movies),
+            ],
+          )
     );
   }
 }
