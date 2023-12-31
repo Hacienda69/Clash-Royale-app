@@ -1,6 +1,6 @@
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/FilterByGenre.dart';
-import 'package:WatchApp/screens/widgets/sectionWidget.dart';
+import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/APIdata.dart';
 import 'package:WatchApp/models/APIseries.dart';
@@ -125,5 +125,65 @@ class HomePageState extends State<HomePage> {
                     ),
                 ],
               ));
+  }
+}
+
+class Section extends StatelessWidget {
+  final String title;
+  final List list;
+
+  const Section({
+    super.key,
+    required this.title,
+    required this.list,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.5),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          ScrollableWidgetRow(list: list),
+        ],
+      ),
+    );
+  }
+}
+
+class ScrollableWidgetRow extends StatelessWidget{
+  final List list;
+
+  const ScrollableWidgetRow({super.key, required this.list,});
+
+  @override
+  Widget build(BuildContext context){
+    return SizedBox(
+      //width: double.infinity,
+      height: 200,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: list.length,
+        itemBuilder: (context, index){
+        return ListItem(
+          title: list[index].title,
+          image: list[index].image,
+          rating: list[index].rating.toString(),
+        );}
+      ),
+    );
   }
 }
