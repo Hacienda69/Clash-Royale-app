@@ -118,7 +118,7 @@ class MediaTypeTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+      margin: const EdgeInsets.fromLTRB(15, 8, 0, 0),
       child: Text(
         title,
         style: const TextStyle(
@@ -143,26 +143,21 @@ class Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: const EdgeInsets.fromLTRB(15, 8, 0, 0),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          ScrollableWidgetRow(list: list),
-        ],
-      ),
+        ),
+        ScrollableWidgetRow(list: list),
+      ],
     );
   }
 }
