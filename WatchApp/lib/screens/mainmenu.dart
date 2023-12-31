@@ -33,7 +33,7 @@ class HomePageState extends State<HomePage> {
     });
   }
 
-    Future<void> getMovies() async {
+  Future<void> getMovies() async {
     // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
     _movies = await MoviesApi.apiLoadMovies();
     setState(() {
@@ -76,45 +76,22 @@ class HomePageState extends State<HomePage> {
       ),
       backgroundColor: backGroundColor,
       body: _isLoadingSeries && _isLoadingMovies
-            ? const Center(child: CircularProgressIndicator())
-            : ListView(
-                children: [
-
-                  //MOVIES
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Movies",
-                      style: TextStyle(
-                        color: Colors.yellow,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Section(title: "Top 100 Movies", list: _movies),
-                  Section(
-                    title: "Crime Movies",
-                    list: FilterByGenre.filterMoviesByGenre("Crime", _movies),
-                  ),
-                  Section(
-                    title: "Action Movies",
-                    list: FilterByGenre.filterMoviesByGenre("Action", _movies),
-                  ),
-
-                  // SERIES
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "Series",
-                      style: TextStyle(
-                        color: Colors.yellow,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Section(title: "Top 100 Series", list: _series),
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              children: [
+                //MOVIES
+                const MediaTypeTitle(title: "Movies"),
+                Section(title: "Top 100 Movies", list: _movies),
+                Section(
+                  title: "Crime Movies",
+                  list: FilterByGenre.filterMoviesByGenre("Crime", _movies),
+                ),
+                Section(
+                  title: "Action Movies",
+                  list: FilterByGenre.filterMoviesByGenre("Action", _movies),
+                ),
+                const MediaTypeTitle(title: "Series"),
+                Section(title: "Top 100 Series", list: _series),
                   Section(
                     title: "Drama Series", 
                     list: FilterByGenre.filterSeriesByGenre("Drama", _series),
@@ -123,8 +100,34 @@ class HomePageState extends State<HomePage> {
                     title: "Comedy Series", 
                     list: FilterByGenre.filterSeriesByGenre("Comedy", _series),
                     ),
-                ],
-              ));
+              ],
+            ),
+    );
+  }
+}
+
+class MediaTypeTitle extends StatelessWidget {
+  final String title;
+
+  const MediaTypeTitle({
+    super.key,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.yellow,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+    );
   }
 }
 
@@ -164,26 +167,29 @@ class Section extends StatelessWidget {
   }
 }
 
-class ScrollableWidgetRow extends StatelessWidget{
+class ScrollableWidgetRow extends StatelessWidget {
   final List list;
 
-  const ScrollableWidgetRow({super.key, required this.list,});
+  const ScrollableWidgetRow({
+    super.key,
+    required this.list,
+  });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return SizedBox(
       //width: double.infinity,
       height: 200,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: list.length,
-        itemBuilder: (context, index){
-        return ListItem(
-          title: list[index].title,
-          image: list[index].image,
-          rating: list[index].rating.toString(),
-        );}
-      ),
+          scrollDirection: Axis.horizontal,
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return ListItem(
+              title: list[index].title,
+              image: list[index].image,
+              rating: list[index].rating.toString(),
+            );
+          }),
     );
   }
 }
