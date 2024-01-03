@@ -1,5 +1,6 @@
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/FilterByGenre.dart';
+import 'package:WatchApp/screens/MyListScreen.dart';
 import 'package:WatchApp/screens/SearchScreen.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ class HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         shadowColor: Colors.black,
         elevation: 10,
@@ -64,10 +66,8 @@ class HomePageState extends State<HomePage> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                //minimumSize: const Size(30, 30),
-                //maximumSize: const Size(30, 30),
-                ),
+                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+              ),
               child: const Icon(
                 Icons.search,
                 color: Colors.white,
@@ -82,10 +82,23 @@ class HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 30,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyListScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
           ],
         ),
