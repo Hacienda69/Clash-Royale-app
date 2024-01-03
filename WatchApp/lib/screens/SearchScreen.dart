@@ -29,8 +29,6 @@ class SearchScreen extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-                  //minimumSize: const Size(30, 30),
-                  //maximumSize: const Size(30, 30),
                 ),
                 child: const Icon(
                   Icons.home_outlined,

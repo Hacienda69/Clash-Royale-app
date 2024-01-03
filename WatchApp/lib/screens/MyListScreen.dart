@@ -1,8 +1,8 @@
 import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatelessWidget {
-  const SearchScreen({
+class MyListScreen extends StatelessWidget {
+  const MyListScreen({
     super.key,
   });
 
@@ -29,8 +29,6 @@ class SearchScreen extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-                  //minimumSize: const Size(30, 30),
-                  //maximumSize: const Size(30, 30),
                 ),
                 child: const Icon(
                   Icons.home_outlined,
