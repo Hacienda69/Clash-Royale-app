@@ -1,5 +1,6 @@
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/FilterByGenre.dart';
+import 'package:WatchApp/screens/SearchScreen.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/APIdata.dart';
@@ -50,15 +51,30 @@ class HomePageState extends State<HomePage> {
         backgroundColor: Colors.black,
         shadowColor: Colors.black,
         elevation: 10,
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 30,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SearchScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                //minimumSize: const Size(30, 30),
+                //maximumSize: const Size(30, 30),
+                ),
+              child: const Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
-            Text(
+            const Text(
               "WatchWeb",
               style: TextStyle(
                 color: Colors.yellow,
@@ -66,7 +82,7 @@ class HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Icon(
+            const Icon(
               Icons.add,
               color: Colors.white,
               size: 30,
@@ -92,14 +108,14 @@ class HomePageState extends State<HomePage> {
                 ),
                 const MediaTypeTitle(title: "Series"),
                 Section(title: "Top 100 Series", list: _series),
-                  Section(
-                    title: "Drama Series", 
-                    list: FilterByGenre.filterSeriesByGenre("Drama", _series),
-                    ),
-                  Section(
-                    title: "Comedy Series", 
-                    list: FilterByGenre.filterSeriesByGenre("Comedy", _series),
-                    ),
+                Section(
+                  title: "Drama Series",
+                  list: FilterByGenre.filterSeriesByGenre("Drama", _series),
+                ),
+                Section(
+                  title: "Comedy Series",
+                  list: FilterByGenre.filterSeriesByGenre("Comedy", _series),
+                ),
               ],
             ),
     );
@@ -156,16 +172,16 @@ class Section extends StatelessWidget {
             ),
           ),
         ),
-        ScrollableWidgetRow(list: list),
+        MediaRow(list: list),
       ],
     );
   }
 }
 
-class ScrollableWidgetRow extends StatelessWidget {
+class MediaRow extends StatelessWidget {
   final List list;
 
-  const ScrollableWidgetRow({
+  const MediaRow({
     super.key,
     required this.list,
   });
@@ -173,18 +189,18 @@ class ScrollableWidgetRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      //width: double.infinity,
       height: 200,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            return ListItem(
-              title: list[index].title,
-              image: list[index].image,
-              rating: list[index].rating.toString(),
-            );
-          }),
+        scrollDirection: Axis.horizontal,
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          return ListItem(
+            title: list[index].title,
+            image: list[index].image,
+            rating: list[index].rating.toString(),
+          );
+        },
+      ),
     );
   }
 }
