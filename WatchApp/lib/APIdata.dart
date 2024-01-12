@@ -8,7 +8,7 @@ class SeriesApi {
     var uri = Uri.https('imdb-top-100-movies.p.rapidapi.com', '/series/');
 
     final response = await http.get(uri, headers: {
-      'X-RapidAPI-Key': '086950188fmsh8dc1350cb7827cdp15f693jsn05ee186933dc',
+      'X-RapidAPI-Key': 'a6689e4094msh3a4dc8848af1250p1ade5ejsn04a119cfa915',
       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'
     });
 
@@ -18,18 +18,18 @@ class SeriesApi {
       List<Series> seriesData =
           data.map((item) => Series.fromJson(item)).toList();
       return seriesData;
-        } else {
+    } else {
       throw Exception('Failed to load series: ${response.statusCode}');
     }
   }
 }
 
 class MoviesApi {
-    static Future<List<Movies>> apiLoadMovies() async {
+  static Future<List<Movies>> apiLoadMovies() async {
     var uri = Uri.https('imdb-top-100-movies.p.rapidapi.com');
 
     final response = await http.get(uri, headers: {
-      'X-RapidAPI-Key': '086950188fmsh8dc1350cb7827cdp15f693jsn05ee186933dc',
+      'X-RapidAPI-Key': 'a6689e4094msh3a4dc8848af1250p1ade5ejsn04a119cfa915',
       'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'
     });
 
@@ -39,7 +39,7 @@ class MoviesApi {
       List<Movies> moviesData =
           data.map((item) => Movies.fromJson(item)).toList();
       return moviesData;
-        } else {
+    } else {
       throw Exception('Failed to load movies: ${response.statusCode}');
     }
   }
