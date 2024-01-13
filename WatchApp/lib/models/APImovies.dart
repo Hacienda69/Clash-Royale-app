@@ -6,11 +6,11 @@ class Movies {
   final int year;
   final String image;
   final String description;
-  final String trailer;
   final List<String> genres;
   final List<String> directors;
   final List<String> writers;
   final String imdbLink;
+  final String trailer;
 
   Movies({
     required this.rank,
@@ -20,14 +20,26 @@ class Movies {
     required this.year,
     required this.image,
     required this.description,
-    required this.trailer,
     required this.genres,
     required this.directors,
     required this.writers,
     required this.imdbLink,
+    required this.trailer,
   });
 
   factory Movies.fromJson(Map<String, dynamic> json) {
+    List<dynamic> auxGenres = json["genre"] as List<dynamic>;
+    List<String> defGenres = [...auxGenres.cast<String>()];
+    while (defGenres.length < 3) { defGenres.add(" "); }
+
+    List<dynamic>? auxDirectors = json["director"] as List<dynamic>?;
+    List<String> defDirectors = auxDirectors?.cast<String>() ?? [];
+    while (defDirectors.length < 3) { defDirectors.add(" "); }
+
+    List<dynamic>? auxWriters = json["writers"] as List<dynamic>?;
+    List<String> defWriters = auxWriters?.cast<String>() ?? [];
+    while (defWriters.length < 3) { defWriters.add(" "); }
+
     return Movies(
       rank: json["rank"] as int,
       title: json["title"] as String,
@@ -36,11 +48,11 @@ class Movies {
       year: json["year"] as int,
       image: json["image"] as String,
       description: json["description"] as String,
-      trailer: json["trailer"] as String,
-      genres: json["genre"] as List<String>,
-      directors: json["director"] as List<String>,
-      writers: json["writers"] as List<String>,
-      imdbLink: json["imdbLink"] as String,
+      genres: defGenres,
+      directors: defDirectors,
+      writers: defWriters,
+      imdbLink: json["imdb_link"] as String,
+      trailer: json["trailer"] as String? ?? " ",
     );
   }
 
@@ -52,6 +64,6 @@ class Movies {
 
   @override
   String toString() {
-    return 'Movies {rank: $rank, title: $title, thumbnail: $thumbnail, rating: $rating, year: $year, image: $image, description: $description, trailer: $trailer,  genre: $genres, director: $directors, writers: $writers, imdb_link: $imdbLink}';
+    return 'Movies {rank: $rank, title: $title, thumbnail: $thumbnail, rating: $rating, year: $year, image: $image, description: $description,  genre: $genres, director: $directors, writers: $writers, imdb_link: $imdbLink, trailer: $trailer}';
   }
 }

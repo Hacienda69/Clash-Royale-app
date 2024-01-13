@@ -6,9 +6,9 @@ class Series {
   final String year;
   final String image;
   final String description;
-  final String trailer;
   final List<String> genres;
   final String imdb_link;
+  final String trailer;
 
   Series({
     required this.rank,
@@ -18,12 +18,19 @@ class Series {
     required this.year,
     required this.image,
     required this.description,
-    required this.trailer,
     required this.genres,
     required this.imdb_link,
+    required this.trailer,
   });
 
   factory Series.fromJson(Map<String, dynamic> json) {
+    List<dynamic> auxGenres = json["genre"] as List<dynamic>;
+    List<String> defGenres = [...auxGenres.cast<String>()];
+
+    while (defGenres.length < 3) {
+      defGenres.add(" ");
+    }
+
     return Series(
       rank: json["rank"] as int,
       title: json["title"] as String,
@@ -32,9 +39,9 @@ class Series {
       year: json["year"] as String,
       image: json["image"] as String,
       description: json["description"] as String,
-      trailer: json["trailer"] as String,
-      genres: json["genre"] as List<String>,
+      genres: defGenres,
       imdb_link: json["imdb_link"] as String,
+      trailer: json["trailer"] as String? ?? " ",
     );
   }
 
@@ -46,6 +53,6 @@ class Series {
 
   @override
   String toString() {
-    return 'Series {rank: $rank, title: $title, thumbnail: $thumbnail, rating: $rating, year: $year, image: $image, description: $description, trailer: $trailer, genre: $genres, imdb_link: $imdb_link}';
+    return 'Series {rank: $rank, title: $title, thumbnail: $thumbnail, rating: $rating, year: $year, image: $image, description: $description, genre: $genres, imdb_link: $imdb_link}';
   }
 }
