@@ -1,3 +1,4 @@
+import 'package:WatchApp/screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
@@ -16,27 +17,42 @@ class ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-          width: 100,
-          height: 142,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(7.5),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(1),
-                offset: const Offset(
-                  0.0,
-                  5.0,
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DescriptionScreen(
+                  title: title,
+                  image: image,
+                  rating: rating,
+                  // Add more details as needed
                 ),
-                blurRadius: 10.0,
-                spreadRadius: -5.0,
               ),
-            ],
-            image: DecorationImage(
-              image: NetworkImage(image),
-              fit: BoxFit.cover,
+            );
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+            width: 100,
+            height: 142,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(7.5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(1),
+                  offset: const Offset(
+                    0.0,
+                    5.0,
+                  ),
+                  blurRadius: 10.0,
+                  spreadRadius: -5.0,
+                ),
+              ],
+              image: DecorationImage(
+                image: NetworkImage(image),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
