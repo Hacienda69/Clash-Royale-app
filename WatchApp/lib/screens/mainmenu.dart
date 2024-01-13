@@ -1,6 +1,7 @@
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/FilterByGenre.dart';
 import 'package:WatchApp/screens/MyListScreen.dart';
+import 'package:WatchApp/screens/DescriptionScreen.dart';
 import 'package:WatchApp/screens/SearchScreen.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
