@@ -1,4 +1,3 @@
-import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:flutter/material.dart';
 
 class DescriptionScreen extends StatelessWidget {
@@ -105,7 +104,7 @@ class DescriptionScreen extends StatelessWidget {
               'IMDb Link: $imdbLink',
               style: const TextStyle(fontSize: 16),
             ),
-            if (trailer != null && trailer.isNotEmpty)
+            if (trailer.isNotEmpty)
               ElevatedButton(
                 onPressed: () {
                   // Handle trailer button click

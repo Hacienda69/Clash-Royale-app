@@ -1,6 +1,5 @@
 import 'package:WatchApp/screens/DescriptionScreen.dart';
 import 'package:WatchApp/models/APImovies.dart';
-import 'package:WatchApp/models/APIseries.dart';
 import 'package:flutter/material.dart';
 
 class MediaItem extends StatelessWidget {

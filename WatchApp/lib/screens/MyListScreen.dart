@@ -1,5 +1,4 @@
 import 'package:WatchApp/screens/mainmenu.dart';
-import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
 
 class MyListScreen extends StatelessWidget {
