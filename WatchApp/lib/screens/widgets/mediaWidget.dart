@@ -26,7 +26,8 @@ class ListItem extends StatelessWidget {
                   title: title,
                   image: image,
                   rating: rating,
-                  // Add more details as needed
+                  //No more details needed in this widget,
+                  //other ones will be on description
                 ),
               ),
             );

@@ -1,36 +1,48 @@
 class Movies {
+  final int rank;
   final String title;
+  final String thumbnail;
   final String rating; // Cambiado a tipo num para aceptar tanto int como double
+  final int year;
   final String image;
-  final String genre1;
-  final String genre2;
-  final String genre3;
+  final String description;
+  final String trailer;
+  final List<String> genres;
+  final List<String> directors;
+  final List<String> writers;
+  final String linkImdb;
 
   Movies({
+    required this.rank,
     required this.title,
+    required this.thumbnail,
     required this.rating,
+    required this.year,
     required this.image,
-    required this.genre1,
-    required this.genre2,
-    required this.genre3,
+    required this.description,
+    required this.trailer,
+    required this.genres,
+    required this.directors,
+    required this.writers,
+    required this.linkImdb,
   });
 
-factory Movies.fromJson(Map<String, dynamic> json) {
-  List<dynamic> genres = json["genre"] as List<dynamic>;
-
-  while (genres.length < 3) {
-    genres.add(" ");
+  factory Movies.fromJson(Map<String, dynamic> json) {
+    return Movies(
+      rank: json["rank"] as int,
+      title: json["title"] as String,
+      thumbnail: json["thumbnail"] as String,
+      rating: json["rating"],
+      year: json["year"] as int,
+      image: json["image"] as String,
+      description: json["description"] as String,
+      trailer: json["trailer"] as String,
+      genres: json["genre"] as List<String>,
+      directors: json["director"] as List<String>,
+      writers: json["writers"] as List<String>,
+      linkImdb: json["linkImdb"] as String,
+    );
   }
-
-  return Movies(
-    title: json["title"] as String,
-    rating: json["rating"], // No necesita ser convertido explícitamente a double
-    image: json["image"] as String,
-    genre1: genres.elementAt(0) as String? ?? " ",
-    genre2: genres.elementAt(1) as String? ?? " ",
-    genre3: genres.elementAt(2) as String? ?? " ",
-  );
-}
 
   static List<Movies> moviesFromSnapshot(List snapshot) {
     return snapshot.map((data) {
@@ -40,6 +52,6 @@ factory Movies.fromJson(Map<String, dynamic> json) {
 
   @override
   String toString() {
-    return 'Movies {title: $title, rating: $rating, image: $image,  genre1: $genre1, genre2: $genre2, genre3: $genre3}';
+    return 'Movies {title: $title, rating: $rating, image: $image,  genre: $genres, director: $directors, writers: $writers}';
   }
 }
