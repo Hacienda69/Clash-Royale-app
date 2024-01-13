@@ -21,17 +21,12 @@ class SearchScreen extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(
-                  Icons.home_outlined,
+                  Icons.arrow_back,
                   color: Colors.white,
                   size: 30,
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
               ),
               const Text(
@@ -44,7 +39,7 @@ class SearchScreen extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.add,
+                  Icons.home_outlined,
                   color: Colors.white,
                   size: 30,
                 ),
@@ -52,7 +47,7 @@ class SearchScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MyListScreen(),
+                      builder: (context) => const HomePage(),
                     ),
                   );
                 },

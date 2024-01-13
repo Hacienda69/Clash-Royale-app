@@ -24,7 +24,34 @@ class DescriptionScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
+            IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(
+              width: 228,
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.yellow,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.home_outlined,
+                color: Colors.white,
+                size: 30,
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -33,31 +60,6 @@ class DescriptionScreen extends StatelessWidget {
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-              ),
-              child: const Icon(
-                Icons.home_outlined,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            SizedBox(
-              width: 228,
-              child: Text(
-              title,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.yellow,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            ),
-            const Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 30,
             ),
           ],
         ),
@@ -71,7 +73,8 @@ class DescriptionScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 'Title: $title',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(
                 'Rating: $rating',
