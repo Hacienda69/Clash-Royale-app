@@ -12,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => MediaModel()),
         ChangeNotifierProvider(create: (context) => LoadingContent()),
+        ChangeNotifierProvider(create: (context) => SavedMediaModel()),
         ],
     child: const IMDbApp(),
   ));
@@ -52,6 +53,30 @@ class LoadingContent with ChangeNotifier {
   }
 }
 
+class SavedMediaModel with ChangeNotifier{
+  List<Movies> _savedMovies = [];
+  List<Movies> get savedMovies => _savedMovies;
+
+  List<Series> _savedSeries = [];
+  List<Series> get savedSeries => _savedSeries;
+
+  void addSavedMovie(Movies x) {
+    _savedMovies.add(x);
+    notifyListeners();
+  }
+  void addSavedSerie(Series x) {
+    _savedSeries.add(x);
+    notifyListeners();
+  }
+  void substractMovie(Movies x) {
+    _savedMovies.remove(x);
+    notifyListeners();
+  }
+  void substractSerie(Series x) {
+    _savedSeries.remove(x);
+  }
+}
+
 class IMDbApp extends StatefulWidget {
   const IMDbApp({super.key});
 
@@ -62,8 +87,6 @@ class IMDbApp extends StatefulWidget {
 class _IMDbAppState extends State<IMDbApp> {
   List<Series> _series = []; // Inicializa _series con una lista vacía
   List<Movies> _movies = []; // Inicializa _movies con una lista vacía
-  bool _isLoadingMovies = true;
-  bool _isLoadingSeries = true;
 
   @override
   void initState() {
@@ -76,12 +99,9 @@ class _IMDbAppState extends State<IMDbApp> {
     // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
     _series = await SeriesApi.apiLoadSeries();
     setState(() {
-      _isLoadingSeries = false;
+      var loadingContent = Provider.of<LoadingContent>(context, listen: false);
+      loadingContent.setLoadingSeries(false);
     });
-
-    var loadingContent = Provider.of<LoadingContent>(context, listen: false);
-    loadingContent.setLoadingSeries(false);
-
     var mediaModel = Provider.of<MediaModel>(context, listen: false);
     mediaModel.setSeriesList(_series);
   }
@@ -90,14 +110,11 @@ class _IMDbAppState extends State<IMDbApp> {
     // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
     _movies = await MoviesApi.apiLoadMovies();
     setState(() {
-      _isLoadingMovies = false;
+      var loadingContent = Provider.of<LoadingContent>(context, listen: false);
+      loadingContent.setLoadingMovies(false);
     });
-
-    var loadingContent = Provider.of<LoadingContent>(context, listen: false);
-    loadingContent.setLoadingMovies(false);
-
-    var mediaModel = Provider.of<MediaModel>(context, listen: false);
-    mediaModel.setMoviesList(_movies);
+    var savedMoviesList = Provider.of<SavedMediaModel>(context, listen: false);
+    savedMoviesList.addSavedMovie(_movies.elementAt(0));
   }
 
   @override
