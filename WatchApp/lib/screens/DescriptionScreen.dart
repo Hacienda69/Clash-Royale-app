@@ -6,7 +6,8 @@ class DescriptionScreen extends StatelessWidget {
   final String image;
   final String rating;
 
-  DescriptionScreen({
+  const DescriptionScreen({
+    super.key,
     required this.title,
     required this.image,
     required this.rating,
@@ -41,13 +42,17 @@ class DescriptionScreen extends StatelessWidget {
                 size: 30,
               ),
             ),
-            const Text(
-              "WatchWeb",
-              style: TextStyle(
+            SizedBox(
+              width: 228,
+              child: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
                 color: Colors.yellow,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
+            ),
             ),
             const Icon(
               Icons.add,
@@ -63,14 +68,14 @@ class DescriptionScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.network(image),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 'Title: $title',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(
                 'Rating: $rating',
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
               // Add more details as needed
             ],
