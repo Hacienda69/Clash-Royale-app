@@ -1,3 +1,4 @@
+import 'package:WatchApp/screens/SearchScreen.dart';
 import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,12 @@ class MyListScreen extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(
+              IconButton(
+                icon: const Icon(
+                  Icons.home_outlined,
+                  color: Colors.white,
+                  size: 30,
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -28,27 +34,29 @@ class MyListScreen extends StatelessWidget {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-                ),
-                child: const Icon(
-                  Icons.home_outlined,
-                  color: Colors.white,
-                  size: 30,
-                ),
               ),
               const Text(
-                "WatchWeb",
+                "My List",
                 style: TextStyle(
                   color: Colors.yellow,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 30,
+              IconButton(
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

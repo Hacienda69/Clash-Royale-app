@@ -57,7 +57,12 @@ class HomePageState extends State<HomePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
+            IconButton(
+              icon: const Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 30,
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -66,14 +71,6 @@ class HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-              ),
-              child: const Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 30,
-              ),
             ),
             const Text(
               "WatchWeb",
@@ -83,7 +80,12 @@ class HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            ElevatedButton(
+            IconButton(
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 30,
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -92,14 +94,6 @@ class HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-              ),
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 30,
-              ),
             ),
           ],
         ),

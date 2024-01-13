@@ -1,3 +1,4 @@
+import 'package:WatchApp/screens/MyListScreen.dart';
 import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,12 @@ class SearchScreen extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(
+              IconButton(
+                icon: const Icon(
+                  Icons.home_outlined,
+                  color: Colors.white,
+                  size: 30,
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -27,27 +33,29 @@ class SearchScreen extends StatelessWidget {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-                ),
-                child: const Icon(
-                  Icons.home_outlined,
-                  color: Colors.white,
-                  size: 30,
-                ),
               ),
               const Text(
-                "WatchWeb",
+                "Search",
                 style: TextStyle(
                   color: Colors.yellow,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 30,
+              IconButton(
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyListScreen(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
