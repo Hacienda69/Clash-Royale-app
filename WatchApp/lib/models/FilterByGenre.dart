@@ -18,9 +18,9 @@ class FilterByGenre {
   static List<Series> filterSeriesByGenre(
       String targetGenre, List<Series> list) {
     List<Series> filteredList = list
-        .where((serie) => (serie.genre1 == targetGenre ||
-            serie.genre2 == targetGenre ||
-            serie.genre3 == targetGenre))
+        .where((serie) => (serie.genres[0] == targetGenre ||
+            serie.genres[1] == targetGenre ||
+            serie.genres[2] == targetGenre))
         .toList();
 
     return filteredList;

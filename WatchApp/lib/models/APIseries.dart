@@ -1,36 +1,42 @@
 class Series {
+  final int rank;
   final String title;
+  final String thumbnail;
   final num rating; // Cambiado a tipo num para aceptar tanto int como double
+  final String year;
   final String image;
-  final String genre1;
-  final String genre2;
-  final String genre3;
+  final String description;
+  final String trailer;
+  final List<String> genres;
+  final String imdb_link;
 
   Series({
+    required this.rank,
     required this.title,
+    required this.thumbnail,
     required this.rating,
+    required this.year,
     required this.image,
-    required this.genre1,
-    required this.genre2,
-    required this.genre3,
+    required this.description,
+    required this.trailer,
+    required this.genres,
+    required this.imdb_link,
   });
 
-factory Series.fromJson(Map<String, dynamic> json) {
-  List<dynamic> genres = json["genre"] as List<dynamic>;
-
-  while (genres.length < 3) {
-    genres.add(" ");
+  factory Series.fromJson(Map<String, dynamic> json) {
+    return Series(
+      rank: json["rank"] as int,
+      title: json["title"] as String,
+      thumbnail: json["thumbnail"] as String,
+      rating: json["rating"],
+      year: json["year"] as String,
+      image: json["image"] as String,
+      description: json["description"] as String,
+      trailer: json["trailer"] as String,
+      genres: json["genre"] as List<String>,
+      imdb_link: json["imdb_link"] as String,
+    );
   }
-
-  return Series(
-    title: json["title"] as String,
-    rating: json["rating"], // No necesita ser convertido explícitamente a double
-    image: json["image"] as String,
-    genre1: genres.elementAt(0) as String? ?? " ",
-    genre2: genres.elementAt(1) as String? ?? " ",
-    genre3: genres.elementAt(2) as String? ?? " ",
-  );
-}
 
   static List<Series> seriesFromSnapshot(List snapshot) {
     return snapshot.map((data) {
@@ -40,6 +46,6 @@ factory Series.fromJson(Map<String, dynamic> json) {
 
   @override
   String toString() {
-    return 'Series {title: $title, rating: $rating, image: $image, genre1: $genre1, genre2: $genre2, genre3: $genre3}';
+    return 'Series {rank: $rank, title: $title, thumbnail: $thumbnail, rating: $rating, year: $year, image: $image, description: $description, trailer: $trailer, genre: $genres, imdb_link: $imdb_link}';
   }
 }

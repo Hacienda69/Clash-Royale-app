@@ -10,7 +10,7 @@ class Movies {
   final List<String> genres;
   final List<String> directors;
   final List<String> writers;
-  final String linkImdb;
+  final String imdbLink;
 
   Movies({
     required this.rank,
@@ -24,7 +24,7 @@ class Movies {
     required this.genres,
     required this.directors,
     required this.writers,
-    required this.linkImdb,
+    required this.imdbLink,
   });
 
   factory Movies.fromJson(Map<String, dynamic> json) {
@@ -40,7 +40,7 @@ class Movies {
       genres: json["genre"] as List<String>,
       directors: json["director"] as List<String>,
       writers: json["writers"] as List<String>,
-      linkImdb: json["linkImdb"] as String,
+      imdbLink: json["imdbLink"] as String,
     );
   }
 
@@ -52,6 +52,6 @@ class Movies {
 
   @override
   String toString() {
-    return 'Movies {title: $title, rating: $rating, image: $image,  genre: $genres, director: $directors, writers: $writers}';
+    return 'Movies {rank: $rank, title: $title, thumbnail: $thumbnail, rating: $rating, year: $year, image: $image, description: $description, trailer: $trailer,  genre: $genres, director: $directors, writers: $writers, imdb_link: $imdbLink}';
   }
 }
