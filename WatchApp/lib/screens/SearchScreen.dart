@@ -1,4 +1,3 @@
-import 'package:WatchApp/screens/MyListScreen.dart';
 import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:flutter/material.dart';
 
