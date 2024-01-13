@@ -1,20 +1,22 @@
 import 'package:WatchApp/screens/DescriptionScreen.dart';
+import 'package:WatchApp/models/APImovies.dart';
+import 'package:WatchApp/models/APIseries.dart';
 import 'package:flutter/material.dart';
 
-class ListItem extends StatelessWidget {
-  final String title;
-  final String image;
-  final String rating;
+class MediaItem extends StatelessWidget {
+  final dynamic media; // Can be either Movies or Series
 
-  const ListItem({
+  const MediaItem({
     super.key,
-    required this.title,
-    required this.image,
-    required this.rating,
+    required this.media,
   });
 
   @override
   Widget build(BuildContext context) {
+    String title = media.title;
+    String image = media.image;
+    String rating = media.rating.toString();
+
     return Column(
       children: [
         InkWell(
@@ -23,11 +25,8 @@ class ListItem extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => DescriptionScreen(
-                  title: title,
-                  image: image,
-                  rating: rating,
-                  //No more details needed in this widget,
-                  //other ones will be on description
+                  media: media,
+                  isMovie: media is Movies,
                 ),
               ),
             );

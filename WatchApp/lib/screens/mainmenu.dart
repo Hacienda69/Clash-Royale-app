@@ -202,10 +202,8 @@ class MediaRow extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: list.length,
         itemBuilder: (context, index) {
-          return ListItem(
-            title: list[index].title,
-            image: list[index].image,
-            rating: list[index].rating.toString(),
+          return MediaItem(
+            media: list[index].media,
           );
         },
       ),
