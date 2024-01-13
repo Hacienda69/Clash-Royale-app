@@ -24,6 +24,8 @@ class DescriptionScreen extends StatelessWidget {
 
     double screenWidth = MediaQuery.of(context).size.width;
 
+    Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -70,51 +72,78 @@ class DescriptionScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.network(image),
-            const SizedBox(height: 20),
-            Text(
-              'Title: $title',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Rank: $rank',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Rating: $rating',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Year: $year',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Description: $description',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Genres: ${genres.join(", ")}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'IMDb Link: $imdbLink',
-              style: const TextStyle(fontSize: 16),
-            ),
-            if (trailer.isNotEmpty)
-              ElevatedButton(
-                onPressed: () {
-                  // Handle trailer button click
-                },
-                child: const Text('Watch Trailer'),
+      backgroundColor: backGroundColor,
+      body: ListView(
+        children: [
+          Container(
+            height: 600,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
               ),
-            // Add more details as needed
-          ],
-        ),
+              child: Image.network(
+                image,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(20),
+            color: Colors.black,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.yellow,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                _buildInfoItem('Rating', rating),
+                _buildInfoItem('Year', year.toString()),
+                _buildInfoItem('Description', description),
+                _buildInfoItem('Genres', genres.join(', ')),
+                _buildInfoItem('IMDb Link', imdbLink),
+                if (trailer != null && trailer.isNotEmpty)
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Watch Trailer'),
+                  ),
+              ],
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildInfoItem(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$label:',
+          style: const TextStyle(
+            color: Colors.yellow,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }
