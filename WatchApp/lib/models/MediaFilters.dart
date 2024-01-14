@@ -1,7 +1,7 @@
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/APIseries.dart';
 
-class FilterByGenre {
+class Filters {
   //Returns a list of all the movies where 1 of their 3 genres coincide with the target one
   static List<Movies> filterMoviesByGenre(
       String targetGenre, List<Movies> list) {

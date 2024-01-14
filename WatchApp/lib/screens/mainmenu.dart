@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:WatchApp/screens/MyListScreen.dart';
 import 'package:WatchApp/screens/SearchScreen.dart';
-import 'package:WatchApp/models/FilterByGenre.dart';
+import 'package:WatchApp/models/MediaFilters.dart';
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/APIseries.dart';
 
@@ -86,21 +86,21 @@ class HomePageState extends State<HomePage> {
                 Section(title: "Top 100 Movies", list: movies),
                 Section(
                   title: "Crime Movies",
-                  list: FilterByGenre.filterMoviesByGenre("Crime", movies),
+                  list: Filters.filterMoviesByGenre("Crime", movies),
                 ),
                 Section(
                   title: "Action Movies",
-                  list: FilterByGenre.filterMoviesByGenre("Action", movies),
+                  list: Filters.filterMoviesByGenre("Action", movies),
                 ),
                 const MediaTypeTitle(title: "Series"),
                 Section(title: "Top 100 Series", list: series),
                 Section(
                   title: "Drama Series",
-                  list: FilterByGenre.filterSeriesByGenre("Drama", series),
+                  list: Filters.filterSeriesByGenre("Drama", series),
                 ),
                 Section(
                   title: "Comedy Series",
-                  list: FilterByGenre.filterSeriesByGenre("Comedy", series),
+                  list: Filters.filterSeriesByGenre("Comedy", series),
                 ),
               ],
             ),
