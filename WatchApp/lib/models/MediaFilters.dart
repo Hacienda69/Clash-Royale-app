@@ -91,7 +91,7 @@ class Filters {
     return filteredList;
   }
 
-  // --------- FILTRE BY RATING --------- ---------------------------------------------------------------------------------------
+  // --------- FILTER BY RATING --------- ---------------------------------------------------------------------------------------
   // Returns a list of movies where their ratings are the same as the target
   static List<Series> filterSeriesByRating(
       double targetRating, List<Series> list) {

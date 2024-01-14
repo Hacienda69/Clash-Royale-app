@@ -38,14 +38,13 @@ class _SearchScreenState extends State<SearchScreen> {
     filteredSeries = Filters.filterSeriesByTitle(
         searchMediaModel.searchQuery, defaultSeries);
 
+    String hintText;
     if (searchMediaModel.onlyMovies) {
-      filteredMovies.isEmpty
-          ? (finalList = defaultMovies)
-          : (finalList = filteredMovies);
+      finalList = filteredMovies;
+      hintText = "Search movies...";
     } else {
-      filteredSeries.isEmpty
-          ? (finalList = defaultSeries)
-          : (finalList = filteredSeries);
+      finalList = filteredSeries;
+      hintText = "Search series...";
     }
 
     //double screenWidth = MediaQuery.of(context).size.width;
@@ -110,7 +109,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    hintText: 'Search movies and series...',
+                    hintText: hintText,
                     hintStyle: const TextStyle(color: Colors.grey),
                     filled: true,
                     fillColor: Colors.black,
@@ -137,11 +136,10 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: finalList.length,
-                  itemBuilder: (context, index) {
-                    return MediaItemReduced(media: finalList[index]);
-                  }
-                ),
+                    itemCount: finalList.length,
+                    itemBuilder: (context, index) {
+                      return MediaItemReduced(media: finalList[index]);
+                    }),
               )
             ],
           ),

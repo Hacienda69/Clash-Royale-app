@@ -85,6 +85,12 @@ class SearchMediaModel with ChangeNotifier{
   bool _onlyMovies = true;
   bool get onlyMovies => _onlyMovies;
 
+  String _genreQuery = '';
+  String get genreQuery => _genreQuery;
+
+  int _yearQuery = 0;
+  int get yearQuery => _yearQuery;
+
   void setSearchQuery(String query) {
     _searchQuery = query;
     notifyListeners();
@@ -92,6 +98,11 @@ class SearchMediaModel with ChangeNotifier{
 
   void setOnlyMovies(bool x){
     _onlyMovies = x;
+    notifyListeners();
+  }
+
+  void setGenreQuery(String x){
+    _genreQuery = x;
     notifyListeners();
   }
 }

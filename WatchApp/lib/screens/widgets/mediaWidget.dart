@@ -122,9 +122,6 @@ class _MediaItemReducedState extends State<MediaItemReduced> {
 
   @override
   Widget build(BuildContext context) {
-    var savedMedia = Provider.of<SavedMediaModel>(context, listen: true);
-
-    GlobalKey inkWellKey = GlobalKey();
     isMovie = widget.media is Movies;
 
     String image = widget.media.image;
@@ -140,8 +137,12 @@ class _MediaItemReducedState extends State<MediaItemReduced> {
       mediaType = "Series";
     }
 
+    var savedMedia = Provider.of<SavedMediaModel>(context, listen: false);
+    isSaved = isMovie
+        ? savedMedia.savedMovies.contains(widget.media)
+        : savedMedia.savedSeries.contains(widget.media);
+
     return InkWell(
-      key: inkWellKey,
       onHover: (hovered) {
         setState(() {
           isHovered = hovered;
