@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:WatchApp/main.dart';
+import 'package:provider/provider.dart';
 
 class DescriptionScreen extends StatelessWidget {
   final dynamic media;
@@ -111,8 +113,27 @@ class DescriptionScreen extends StatelessWidget {
                 _buildInfoItem('IMDb Link', imdbLink),
                 if (trailer != null && trailer.isNotEmpty)
                   ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Watch Trailer'),
+                    onPressed: () {
+                      var savedMedia =
+                          Provider.of<SavedMediaModel>(context, listen: false);
+
+                      // Esto es el Add to my list + comprueba si la peli ya está metida o no
+                      if (isMovie) {
+                        if (savedMedia.savedMovies.contains(media)) {
+                          savedMedia.substractMovie(media);
+                        } else {
+                          savedMedia.addSavedMovie(media);
+                        }
+                      } else {
+                        if (savedMedia.savedSeries.contains(media)) {
+                          savedMedia.substractSerie(media);
+                        } else {
+                          savedMedia.addSavedSerie(media);
+                        }
+                      }
+                    },
+                    child:
+                        Text(isMovie ? 'Add to My Movies' : 'Add to My Series'),
                   ),
               ],
             ),
