@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-void showPopupMenu(BuildContext context) {
-  final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+void showFiltersMenu(BuildContext context) {
+  final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
   final RelativeRect position = RelativeRect.fromRect(
     Rect.fromPoints(
       const Offset(0, 0),

@@ -55,12 +55,18 @@ class MediaItem extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 9,
+        SizedBox(
+          width: 110,
+          child: Center(
+            child: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 9,
+              ),
+            ),
           ),
         ),
         Container(
@@ -88,6 +94,77 @@ class MediaItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class MediaItemReduced extends StatelessWidget {
+  MediaItemReduced({
+    super.key,
+    required this.media,
+  });
+
+  final dynamic media;
+
+  @override
+  Widget build(BuildContext context) {
+    String image = media.image;
+    String title = media.title;
+    String rating = media.rating;
+
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DescriptionScreen(
+              media: media,
+              isMovie: media is Movies,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        height: 200,
+        decoration: const BoxDecoration(
+          color: Colors.grey,
+          border: Border.symmetric(
+            vertical: BorderSide(color: Colors.black),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 11,
+                  ),
+                  const SizedBox(width: 2),
+                  Text(
+                    rating,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

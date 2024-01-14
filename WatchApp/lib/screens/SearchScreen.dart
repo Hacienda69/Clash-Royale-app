@@ -116,9 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.more_vert, color: Colors.white),
                       onPressed: () {
-                        final RenderBox renderBox = context.findRenderObject() as RenderBox;
-                        final tapPosition = renderBox.localToGlobal(Offset.zero);
-                        showPopupMenu(context, tapPosition);
+                        showFiltersMenu(context);
                       },
                     ),
                   ),
