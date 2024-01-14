@@ -1,13 +1,28 @@
-import 'package:WatchApp/screens/mainmenu.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:WatchApp/main.dart';
+import 'package:WatchApp/screens/mainmenu.dart';
+import 'package:WatchApp/models/APImovies.dart';
+import 'package:WatchApp/models/APIseries.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({
+  SearchScreen({
     super.key,
   });
 
+  List<Movies> defaultMovies = [];
+  List<Series> defaultSeries = [];
+
+  List<Movies> filteredMovies = [];
+  List<Series> filteredSeries = [];
+
   @override
   Widget build(BuildContext context) {
+    defaultMovies = Provider.of<MediaModel>(context, listen: true).moviesList;
+    defaultSeries = Provider.of<MediaModel>(context, listen: true).seriesList;
+
+    Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -54,6 +69,7 @@ class SearchScreen extends StatelessWidget {
             ],
           ),
         ),
+        backgroundColor: backGroundColor,
       ),
     );
   }
