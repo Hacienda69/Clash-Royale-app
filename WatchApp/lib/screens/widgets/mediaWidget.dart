@@ -112,6 +112,11 @@ class MediaItemReduced extends StatelessWidget {
     String title = media.title;
     String rating = media.rating;
 
+    bool isMovie = media is Movies;
+    String mediaType;
+    if (isMovie) {mediaType = "Movie";}
+    else {mediaType = "Series";}
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -119,50 +124,83 @@ class MediaItemReduced extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => DescriptionScreen(
               media: media,
-              isMovie: media is Movies,
+              isMovie: isMovie,
             ),
           ),
         );
       },
       child: Container(
-        height: 200,
+        height: 100,
         decoration: const BoxDecoration(
-          color: Colors.grey,
+          color: Color.fromARGB(255, 40, 40, 40),
           border: Border.symmetric(
             vertical: BorderSide(color: Colors.black),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                    size: 11,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Container(
+                  height: 85,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    image: DecorationImage(
+                      image: NetworkImage(image),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  const SizedBox(width: 2),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    rating,
+                    mediaType,
+                    style: TextStyle(
+                      color: Colors.yellow,
+                    ),
+                  ),
+                  Text(
+                    title,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: 11,
+                        ),
+                        const SizedBox(width: 2),
+                        Text(
+                          rating,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 20,
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

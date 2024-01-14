@@ -1,5 +1,6 @@
 import 'package:WatchApp/models/MediaFilters.dart';
 import 'package:WatchApp/screens/widgets/filterPopUpWidget.dart';
+import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -122,6 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
+              MediaItemReduced(media: filteredMovies[0]),
               Section(
                 title: "Movie Results",
                 list: filteredMovies,
