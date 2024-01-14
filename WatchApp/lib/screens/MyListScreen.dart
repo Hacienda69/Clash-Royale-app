@@ -17,6 +17,8 @@ class MyListScreen extends StatelessWidget {
     List<Movies> savedMovies = savedMedia.savedMovies;
     List<Series> savedSeries = savedMedia.savedSeries;
 
+    Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -63,10 +65,11 @@ class MyListScreen extends StatelessWidget {
             ],
           ),
         ),
+        backgroundColor: backGroundColor,
         body: ListView(
           children: [
-            Section(title: 'Movies', list: savedMovies),
-            Section(title: 'Series', list: savedSeries),
+            Section(title: 'Saved Movies', list: savedMovies),
+            Section(title: 'Saved Series', list: savedSeries),
           ],
         ),
       ),

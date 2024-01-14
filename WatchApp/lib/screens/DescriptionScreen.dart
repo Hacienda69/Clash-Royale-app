@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:WatchApp/main.dart';
 import 'package:provider/provider.dart';
 
-class DescriptionScreen extends StatelessWidget {
+class DescriptionScreen extends StatefulWidget {
   final dynamic media;
   final bool isMovie;
 
@@ -13,16 +13,38 @@ class DescriptionScreen extends StatelessWidget {
   });
 
   @override
+  State<DescriptionScreen> createState() => _DescriptionScreenState();
+}
+
+class _DescriptionScreenState extends State<DescriptionScreen> {
+  @override
   Widget build(BuildContext context) {
-    String title = isMovie ? media.title : media.title;
-    String image = isMovie ? media.image : media.image;
-    String rating = isMovie ? media.rating.toString() : media.rating.toString();
-    int rank = isMovie ? media.rank : media.rank;
-    int year = isMovie ? media.year : int.tryParse(media.year) ?? 0;
-    String description = isMovie ? media.description : media.description;
-    List<String> genres = isMovie ? media.genres : media.genres;
-    String imdbLink = isMovie ? media.imdbLink : media.imdb_link;
-    String trailer = isMovie ? media.trailer : media.trailer;
+    var savedMedia = Provider.of<SavedMediaModel>(context, listen: false);
+    bool isSaved;
+
+    if (widget.isMovie) {
+      isSaved = savedMedia.savedMovies.contains(widget.media);
+    } else {
+      isSaved = savedMedia.savedSeries.contains(widget.media);
+    }
+
+    String title = widget.isMovie ? widget.media.title : widget.media.title;
+    String image = widget.isMovie ? widget.media.image : widget.media.image;
+    String rating = widget.isMovie
+        ? widget.media.rating.toString()
+        : widget.media.rating.toString();
+    int rank = widget.isMovie ? widget.media.rank : widget.media.rank;
+    int year = widget.isMovie
+        ? widget.media.year
+        : int.tryParse(widget.media.year) ?? 0;
+    String description =
+        widget.isMovie ? widget.media.description : widget.media.description;
+    List<String> genres =
+        widget.isMovie ? widget.media.genres : widget.media.genres;
+    String imdbLink =
+        widget.isMovie ? widget.media.imdbLink : widget.media.imdb_link;
+    String trailer =
+        widget.isMovie ? widget.media.trailer : widget.media.trailer;
 
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -97,44 +119,51 @@ class DescriptionScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.yellow,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.yellow,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {
+                        var savedMedia = Provider.of<SavedMediaModel>(context,
+                            listen: false);
+
+                        // Esto es el Add to my list + comprueba si la peli ya está metida o no
+                        if (widget.isMovie) {
+                          if (savedMedia.savedMovies.contains(widget.media)) {
+                            savedMedia.substractMovie(widget.media);
+                          } else {
+                            savedMedia.addSavedMovie(widget.media);
+                          }
+                        } else {
+                          if (savedMedia.savedSeries.contains(widget.media)) {
+                            savedMedia.substractSerie(widget.media);
+                          } else {
+                            savedMedia.addSavedSerie(widget.media);
+                          }
+                        }
+                      },
+                      backgroundColor: Colors.yellow,
+                      child: Icon(
+                        isSaved ? Icons.bookmark_added : Icons.bookmark,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
                 _buildInfoItem('Rating', rating),
-                _buildInfoItem('Year', year.toString()),
+                _buildInfoItem('Year', widget.isMovie ? year.toString() : ''),
                 _buildInfoItem('Description', description),
                 _buildInfoItem('Genres', genres.join(', ')),
                 _buildInfoItem('IMDb Link', imdbLink),
-                if (trailer.isNotEmpty)
-                  ElevatedButton(
-                    onPressed: () {
-                      var savedMedia =
-                          Provider.of<SavedMediaModel>(context, listen: false);
-
-                      // Esto es el Add to my list + comprueba si la peli ya está metida o no
-                      if (isMovie) {
-                        if (savedMedia.savedMovies.contains(media)) {
-                          savedMedia.substractMovie(media);
-                        } else {
-                          savedMedia.addSavedMovie(media);
-                        }
-                      } else {
-                        if (savedMedia.savedSeries.contains(media)) {
-                          savedMedia.substractSerie(media);
-                        } else {
-                          savedMedia.addSavedSerie(media);
-                        }
-                      }
-                    },
-                    child:
-                        Text(isMovie ? 'Add to My Movies' : 'Add to My Series'),
-                  ),
               ],
             ),
           ),
