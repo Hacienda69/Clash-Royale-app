@@ -19,76 +19,57 @@ class MyListScreen extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.black,
-            shadowColor: Colors.black,
-            elevation: 10,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                const Text(
-                  "My List",
-                  style: TextStyle(
-                    color: Colors.yellow,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.home_outlined,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-          body: ListView(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.black,
+          shadowColor: Colors.black,
+          elevation: 10,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildMediaList('Movies', savedMovies),
-              _buildMediaList('Series', savedSeries),
+              IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              const Text(
+                "My List",
+                style: TextStyle(
+                  color: Colors.yellow,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.home_outlined,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                  );
+                },
+              ),
             ],
-          )),
-    );
-  }
-
-  Widget _buildMediaList(String title, List mediaList) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.fromLTRB(15, 8, 0, 0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
           ),
         ),
-        MediaRow(list: mediaList),
-      ],
+        body: ListView(
+          children: [
+            Section(title: 'Movies', list: savedMovies),
+            Section(title: 'Series', list: savedSeries),
+          ],
+        ),
+      ),
     );
   }
 }
