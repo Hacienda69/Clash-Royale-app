@@ -1,6 +1,7 @@
 import 'package:WatchApp/models/MediaFilters.dart';
 import 'package:WatchApp/screens/widgets/filterPopUpWidget.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
+import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/main.dart';
@@ -38,20 +39,20 @@ class _SearchScreenState extends State<SearchScreen> {
         searchMediaModel.searchQuery, defaultSeries);
 
     if (searchMediaModel.onlyMovies) {
-      filteredMovies.isEmpty 
-      ? (finalList = defaultMovies) 
-      : (finalList = filteredMovies);
-      }
-    else {
+      filteredMovies.isEmpty
+          ? (finalList = defaultMovies)
+          : (finalList = filteredMovies);
+    } else {
       filteredSeries.isEmpty
-      ? (finalList = defaultSeries)
-      : (finalList = filteredSeries);
-      }
+          ? (finalList = defaultSeries)
+          : (finalList = filteredSeries);
+    }
 
     //double screenWidth = MediaQuery.of(context).size.width;
     Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
@@ -134,17 +135,18 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              MediaItemReduced(media: finalList[0]),
-              MediaItemReduced(media: finalList[1]),
-              ListView.builder(
-                itemCount: finalList.length,
-                itemBuilder: (context, index) {
-                  return MediaItemReduced(media: finalList[index]);
-                }
+              Expanded(
+                child: ListView.builder(
+                  itemCount: finalList.length,
+                  itemBuilder: (context, index) {
+                    return Center(child: MediaItemReduced(media: finalList[index]));
+                  }
+                ),
               )
             ],
           ),
         ),
+      ),
     );
   }
 }
