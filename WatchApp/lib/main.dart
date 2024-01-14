@@ -87,6 +87,8 @@ class IMDbApp extends StatefulWidget {
 class _IMDbAppState extends State<IMDbApp> {
   List<Series> _series = []; // Inicializa _series con una lista vacía
   List<Movies> _movies = []; // Inicializa _movies con una lista vacía
+  bool _isLoadingMovies = true;
+  bool _isLoadingSeries = true;
 
   @override
   void initState() {
@@ -99,22 +101,18 @@ class _IMDbAppState extends State<IMDbApp> {
     // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
     _series = await SeriesApi.apiLoadSeries();
     setState(() {
-      var loadingContent = Provider.of<LoadingContent>(context, listen: false);
-      loadingContent.setLoadingSeries(false);
+      Provider.of<LoadingContent>(context, listen: false).setLoadingSeries(false);
     });
-    var mediaModel = Provider.of<MediaModel>(context, listen: false);
-    mediaModel.setSeriesList(_series);
+    Provider.of<MediaModel>(context, listen: false).setSeriesList(_series);
   }
 
   Future<void> getMovies() async {
     // Utiliza await para esperar la respuesta de la API y luego actualiza el estado
     _movies = await MoviesApi.apiLoadMovies();
     setState(() {
-      var loadingContent = Provider.of<LoadingContent>(context, listen: false);
-      loadingContent.setLoadingMovies(false);
+      Provider.of<LoadingContent>(context, listen: false).setLoadingMovies(false);
     });
-    var savedMoviesList = Provider.of<SavedMediaModel>(context, listen: false);
-    savedMoviesList.addSavedMovie(_movies.elementAt(0));
+    Provider.of<MediaModel>(context, listen: false).setMoviesList(_movies);
   }
 
   @override
