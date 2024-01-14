@@ -32,11 +32,24 @@ class _SearchScreenState extends State<SearchScreen> {
     defaultMovies = Provider.of<MediaModel>(context, listen: true).moviesList;
     defaultSeries = Provider.of<MediaModel>(context, listen: true).seriesList;
 
+    //double screenWidth = MediaQuery.of(context).size.width;
+    Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
+
+    // Apply Filters ------------------------------------------------------------
     var searchMediaModel = Provider.of<SearchMediaModel>(context, listen: true);
     filteredMovies = Filters.filterMoviesByTitle(
         searchMediaModel.searchQuery, defaultMovies);
     filteredSeries = Filters.filterSeriesByTitle(
         searchMediaModel.searchQuery, defaultSeries);
+
+    if(searchMediaModel.genreQuery != ''){
+      filteredMovies = Filters.filterMoviesByGenre(
+        searchMediaModel.genreQuery, filteredMovies);
+
+      filteredSeries = Filters.filterSeriesByGenre(
+        searchMediaModel.genreQuery,
+        filteredSeries);
+    }
 
     String hintText;
     if (searchMediaModel.onlyMovies) {
@@ -46,9 +59,6 @@ class _SearchScreenState extends State<SearchScreen> {
       finalList = filteredSeries;
       hintText = "Search series...";
     }
-
-    //double screenWidth = MediaQuery.of(context).size.width;
-    Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
     return MaterialApp(
       home: Scaffold(

@@ -27,35 +27,45 @@ void showFiltersMenu(BuildContext context) {
     position: position,
     items: [
       PopupMenuItem(
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: () {
-                searchMediaModel.setOnlyMovies(!searchMediaModel.onlyMovies);
-              },
-              child: Text(onlyMoviesLabel),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              onChanged: (value) {
-                genderQuery = value;
-              },
-              decoration: const InputDecoration(
-                labelText: 'Enter Genre',
-                labelStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
+        child: SizedBox(
+          width: 200,
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  searchMediaModel.setOnlyMovies(!searchMediaModel.onlyMovies);
+                },
+                child: Text(onlyMoviesLabel),
               ),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ],
+              const SizedBox(height: 10),
+              TextField(
+                onChanged: (value) {
+                  genderQuery = value;
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Enter Genre',
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  searchMediaModel.setGenreQuery(genderQuery);
+                  Navigator.pop(context);
+                },
+                child: const Text('Apply Filters'),
+              ),
+            ],
+          ),
         ),
       ),
-      // Agrega más opciones según sea necesario
     ],
   );
 }
