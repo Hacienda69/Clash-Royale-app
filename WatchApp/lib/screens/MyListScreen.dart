@@ -1,4 +1,5 @@
 import 'package:WatchApp/main.dart';
+import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:WatchApp/screens/mainmenu.dart';

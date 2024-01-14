@@ -5,11 +5,16 @@ import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/APIseries.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   SearchScreen({
     super.key,
   });
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   List<Movies> defaultMovies = [];
   List<Series> defaultSeries = [];
 
@@ -70,6 +75,14 @@ class SearchScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: backGroundColor,
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              
+            ],
+          ),
+        ),
       ),
     );
   }
