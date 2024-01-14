@@ -24,6 +24,8 @@ class _SearchScreenState extends State<SearchScreen> {
   List<Movies> filteredMovies = [];
   List<Series> filteredSeries = [];
 
+  List<dynamic> finalList = [];
+
   @override
   Widget build(BuildContext context) {
     defaultMovies = Provider.of<MediaModel>(context, listen: true).moviesList;
@@ -34,6 +36,17 @@ class _SearchScreenState extends State<SearchScreen> {
         searchMediaModel.searchQuery, defaultMovies);
     filteredSeries = Filters.filterSeriesByTitle(
         searchMediaModel.searchQuery, defaultSeries);
+
+    if (searchMediaModel.onlyMovies) {
+      filteredMovies.isEmpty 
+      ? (finalList = defaultMovies) 
+      : (finalList = filteredMovies);
+      }
+    else {
+      filteredSeries.isEmpty
+      ? (finalList = defaultSeries)
+      : (finalList = filteredSeries);
+      }
 
     //double screenWidth = MediaQuery.of(context).size.width;
     Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
@@ -121,8 +134,14 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              MediaItemReduced(media: defaultMovies[0]),
-              MediaItemReduced(media: defaultSeries[0]),
+              MediaItemReduced(media: finalList[0]),
+              MediaItemReduced(media: finalList[1]),
+              ListView.builder(
+                itemCount: finalList.length,
+                itemBuilder: (context, index) {
+                  return MediaItemReduced(media: finalList[index]);
+                }
+              )
             ],
           ),
         ),
