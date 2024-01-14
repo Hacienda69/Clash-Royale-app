@@ -1,7 +1,6 @@
 import 'package:WatchApp/models/MediaFilters.dart';
 import 'package:WatchApp/screens/widgets/filterPopUpWidget.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
-import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/main.dart';
@@ -24,6 +23,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   List<Movies> filteredMovies = [];
   List<Series> filteredSeries = [];
+
+  List<dynamic> finalList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     prefixIcon: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Icon(Icons.search, color: Colors.white),
                     ),
                     suffixIcon: IconButton(
@@ -123,15 +124,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              MediaItemReduced(media: filteredMovies[0]),
-              Section(
-                title: "Movie Results",
-                list: filteredMovies,
-              ),
-              Section(
-                title: "Series Results",
-                list: filteredSeries,
-              ),
+              finalList.isEmpty ? Text("No results") : 
+              ListView.builder(itemCount: filteredMovies.length,
+              itemBuilder: (context, int index) {
+                return MediaItemReduced(media: filteredMovies[index],);
+              }
+              )
             ],
           ),
         ),

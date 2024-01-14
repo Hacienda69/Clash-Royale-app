@@ -1,6 +1,8 @@
+import 'package:WatchApp/main.dart';
 import 'package:WatchApp/screens/DescriptionScreen.dart';
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MediaItem extends StatelessWidget {
   final dynamic media; // Can be either Movies or Series
@@ -98,7 +100,7 @@ class MediaItem extends StatelessWidget {
   }
 }
 
-class MediaItemReduced extends StatelessWidget {
+class MediaItemReduced extends StatefulWidget {
   MediaItemReduced({
     super.key,
     required this.media,
@@ -107,23 +109,51 @@ class MediaItemReduced extends StatelessWidget {
   final dynamic media;
 
   @override
-  Widget build(BuildContext context) {
-    String image = media.image;
-    String title = media.title;
-    String rating = media.rating;
+  State<MediaItemReduced> createState() => _MediaItemReducedState();
+}
 
-    bool isMovie = media is Movies;
+class _MediaItemReducedState extends State<MediaItemReduced> {
+  bool? isHovered;
+  Color backGroundColorHovered = const Color.fromARGB(255, 40, 40, 40);
+  Color backGroundColorNotHovered = const Color.fromARGB(255, 17, 17, 17);
+
+  late bool isSaved = false;
+  late bool isMovie = false;
+
+  @override
+  Widget build(BuildContext context) {
+    isMovie = widget.media is Movies;
+
+    String image = widget.media.image;
+    String title = widget.media.title;
+    String rating = widget.media.rating;
+
+    double screenWidth = MediaQuery.of(context).size.width;
+
     String mediaType;
-    if (isMovie) {mediaType = "Movie";}
-    else {mediaType = "Series";}
+    if (isMovie) {
+      mediaType = "Movie";
+    } else {
+      mediaType = "Series";
+    }
+
+    var savedMedia = Provider.of<SavedMediaModel>(context, listen: false);
+    isSaved = isMovie
+        ? savedMedia.savedMovies.contains(widget.media)
+        : savedMedia.savedSeries.contains(widget.media);
 
     return InkWell(
+      onHover: (hovered) {
+        setState(() {
+          isHovered = hovered;
+        });
+      },
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DescriptionScreen(
-              media: media,
+              media: widget.media,
               isMovie: isMovie,
             ),
           ),
@@ -131,73 +161,109 @@ class MediaItemReduced extends StatelessWidget {
       },
       child: Container(
         height: 100,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 40, 40, 40),
-          border: Border.symmetric(
+        decoration: BoxDecoration(
+          color: isHovered ?? false
+              ? backGroundColorHovered
+              : backGroundColorNotHovered,
+          border: const Border.symmetric(
             vertical: BorderSide(color: Colors.black),
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Container(
-                  height: 85,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: NetworkImage(image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    mediaType,
-                    style: TextStyle(
-                      color: Colors.yellow,
-                    ),
-                  ),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 11,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Container(
+                      height: 85,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                          image: NetworkImage(image),
+                          fit: BoxFit.cover,
                         ),
-                        const SizedBox(width: 2),
-                        Text(
-                          rating,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        mediaType,
+                        style: const TextStyle(
+                          color: Colors.yellow,
+                        ),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.65,
+                        child: Text(
+                          title,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 11,
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              rating,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
+              ),
+              FloatingActionButton(
+                onPressed: () {
+                  setState(() {
+                    isSaved = !isSaved;
+                    if (isMovie) {
+                      if (isSaved) {
+                        savedMedia.addSavedMovie(widget.media);
+                      } else {
+                        savedMedia.substractMovie(widget.media);
+                      }
+                    } else {
+                      if (isSaved) {
+                        savedMedia.addSavedSerie(widget.media);
+                      } else {
+                        savedMedia.substractSerie(widget.media);
+                      }
+                    }
+                  });
+                },
+                backgroundColor: Colors.yellow,
+                child: Icon(
+                  isSaved ? Icons.bookmark_added : Icons.bookmark,
+                  color: Colors.black,
+                ),
               ),
             ],
           ),
