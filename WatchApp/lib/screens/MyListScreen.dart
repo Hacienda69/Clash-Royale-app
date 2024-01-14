@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:WatchApp/screens/mainmenu.dart';
 import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/APIseries.dart';
-import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 
 class MyListScreen extends StatelessWidget {
   const MyListScreen({

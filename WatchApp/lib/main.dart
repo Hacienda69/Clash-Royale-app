@@ -87,9 +87,7 @@ class IMDbApp extends StatefulWidget {
 class _IMDbAppState extends State<IMDbApp> {
   List<Series> _series = []; // Inicializa _series con una lista vacía
   List<Movies> _movies = []; // Inicializa _movies con una lista vacía
-  bool _isLoadingMovies = true;
-  bool _isLoadingSeries = true;
-
+  
   @override
   void initState() {
     super.initState();

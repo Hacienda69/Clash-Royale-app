@@ -111,7 +111,7 @@ class DescriptionScreen extends StatelessWidget {
                 _buildInfoItem('Description', description),
                 _buildInfoItem('Genres', genres.join(', ')),
                 _buildInfoItem('IMDb Link', imdbLink),
-                if (trailer != null && trailer.isNotEmpty)
+                if (trailer.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
                       var savedMedia =
