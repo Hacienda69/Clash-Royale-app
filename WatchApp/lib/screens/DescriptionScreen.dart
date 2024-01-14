@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:WatchApp/main.dart';
 import 'package:provider/provider.dart';
+import 'package:WatchApp/screens/MyListScreen.dart';
 
 class DescriptionScreen extends StatefulWidget {
   final dynamic media;
   final bool isMovie;
 
   const DescriptionScreen({
-    super.key,
+    Key? key,
     required this.media,
     required this.isMovie,
-  });
+  }) : super(key: key);
 
   @override
   State<DescriptionScreen> createState() => _DescriptionScreenState();
 }
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
+  late bool isSaved;
+
+  @override
+  void initState() {
+    super.initState();
+    var savedMedia = Provider.of<SavedMediaModel>(context, listen: false);
+    isSaved = widget.isMovie
+        ? savedMedia.savedMovies.contains(widget.media)
+        : savedMedia.savedSeries.contains(widget.media);
+  }
+
   @override
   Widget build(BuildContext context) {
     var savedMedia = Provider.of<SavedMediaModel>(context, listen: false);
-    bool isSaved;
-
-    if (widget.isMovie) {
-      isSaved = savedMedia.savedMovies.contains(widget.media);
-    } else {
-      isSaved = savedMedia.savedSeries.contains(widget.media);
-    }
 
     String title = widget.isMovie ? widget.media.title : widget.media.title;
     String image = widget.isMovie ? widget.media.image : widget.media.image;
@@ -82,12 +87,17 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.home_outlined,
+                Icons.add,
                 color: Colors.white,
                 size: 30,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyListScreen(),
+                  ),
+                );
               },
             ),
           ],
@@ -130,23 +140,23 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        var savedMedia = Provider.of<SavedMediaModel>(context,
-                            listen: false);
+                        setState(() {
+                          isSaved = !isSaved;
 
-                        // Esto es el Add to my list + comprueba si la peli ya está metida o no
-                        if (widget.isMovie) {
-                          if (savedMedia.savedMovies.contains(widget.media)) {
-                            savedMedia.substractMovie(widget.media);
+                          if (widget.isMovie) {
+                            if (isSaved) {
+                              savedMedia.addSavedMovie(widget.media);
+                            } else {
+                              savedMedia.substractMovie(widget.media);
+                            }
                           } else {
-                            savedMedia.addSavedMovie(widget.media);
+                            if (isSaved) {
+                              savedMedia.addSavedSerie(widget.media);
+                            } else {
+                              savedMedia.substractSerie(widget.media);
+                            }
                           }
-                        } else {
-                          if (savedMedia.savedSeries.contains(widget.media)) {
-                            savedMedia.substractSerie(widget.media);
-                          } else {
-                            savedMedia.addSavedSerie(widget.media);
-                          }
-                        }
+                        });
                       },
                       backgroundColor: Colors.yellow,
                       child: Icon(
@@ -157,7 +167,8 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   ],
                 ),
                 _buildInfoItem('Rating', rating),
-                _buildInfoItem('Year', widget.isMovie ? year.toString() : ''),
+                if (widget.isMovie)
+                  _buildInfoItem('Year', year != 0 ? year.toString() : ''),
                 _buildInfoItem('Description', description),
                 _buildInfoItem('Genres', genres.join(', ')),
                 _buildInfoItem('IMDb Link', imdbLink),
