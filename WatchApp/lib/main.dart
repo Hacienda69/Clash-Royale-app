@@ -82,8 +82,16 @@ class SearchMediaModel with ChangeNotifier{
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
 
+  bool _onlyMovies = true;
+  bool get onlyMovies => _onlyMovies;
+
   void setSearchQuery(String query) {
     _searchQuery = query;
+    notifyListeners();
+  }
+
+  void setOnlyMovies(bool x){
+    _onlyMovies = x;
     notifyListeners();
   }
 }

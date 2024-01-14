@@ -101,7 +101,7 @@ class MediaItem extends StatelessWidget {
 }
 
 class MediaItemReduced extends StatefulWidget {
-  MediaItemReduced({
+  const MediaItemReduced({
     super.key,
     required this.media,
   });
@@ -126,7 +126,7 @@ class _MediaItemReducedState extends State<MediaItemReduced> {
 
     String image = widget.media.image;
     String title = widget.media.title;
-    String rating = widget.media.rating;
+    String rating = widget.media.rating.toString();
 
     double screenWidth = MediaQuery.of(context).size.width;
 

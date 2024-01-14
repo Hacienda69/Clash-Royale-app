@@ -24,8 +24,6 @@ class _SearchScreenState extends State<SearchScreen> {
   List<Movies> filteredMovies = [];
   List<Series> filteredSeries = [];
 
-  List<dynamic> finalList = [];
-
   @override
   Widget build(BuildContext context) {
     defaultMovies = Provider.of<MediaModel>(context, listen: true).moviesList;
@@ -40,8 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
     //double screenWidth = MediaQuery.of(context).size.width;
     Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
@@ -124,16 +121,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              finalList.isEmpty ? Text("No results") : 
-              ListView.builder(itemCount: filteredMovies.length,
-              itemBuilder: (context, int index) {
-                return MediaItemReduced(media: filteredMovies[index],);
-              }
-              )
+              MediaItemReduced(media: defaultMovies[0]),
+              MediaItemReduced(media: defaultSeries[0]),
             ],
           ),
         ),
-      ),
     );
   }
 }
