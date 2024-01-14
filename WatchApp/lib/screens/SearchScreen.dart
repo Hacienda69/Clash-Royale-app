@@ -1,3 +1,5 @@
+import 'package:WatchApp/models/MediaFilters.dart';
+import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/main.dart';
@@ -6,7 +8,7 @@ import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/APIseries.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({
+ const SearchScreen({
     super.key,
   });
 
@@ -25,6 +27,10 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     defaultMovies = Provider.of<MediaModel>(context, listen: true).moviesList;
     defaultSeries = Provider.of<MediaModel>(context, listen: true).seriesList;
+
+    var searchMediaModel = Provider.of<SearchMediaModel>(context, listen: true);
+    filteredMovies = Filters.filterMoviesByTitle(searchMediaModel.searchQuery, defaultMovies);
+    filteredSeries = Filters.filterSeriesByTitle(searchMediaModel.searchQuery, defaultSeries);
 
     Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
@@ -75,11 +81,29 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
         backgroundColor: backGroundColor,
-        body: const Center(
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              
+               Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  onChanged: (query) {
+                    searchMediaModel.setSearchQuery(query);
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Search movies and series...',
+                  ),
+                ),
+              ),
+              Section(
+                title: "Movie Results",
+                list: filteredMovies,
+              ),
+              Section(
+                title: "Series Results",
+                list: filteredSeries,
+              ),
             ],
           ),
         ),

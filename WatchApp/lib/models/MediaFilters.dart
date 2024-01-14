@@ -107,7 +107,7 @@ class Filters {
 
   // Returns a list of series where their ratings are the same as the target
   static List<Movies> filterMoviesByRating(
-      double targetRating, List<Movies> list) {
+      String targetRating, List<Movies> list) {
     List<Movies> filteredList = [];
 
     for (var movie in list) {

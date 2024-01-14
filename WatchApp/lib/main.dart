@@ -13,6 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => MediaModel()),
         ChangeNotifierProvider(create: (context) => LoadingContent()),
         ChangeNotifierProvider(create: (context) => SavedMediaModel()),
+        ChangeNotifierProvider(create: (context) => SearchMediaModel()),
         ],
     child: const IMDbApp(),
   ));
@@ -74,6 +75,16 @@ class SavedMediaModel with ChangeNotifier{
   }
   void substractSerie(Series x) {
     _savedSeries.remove(x);
+  }
+}
+
+class SearchMediaModel with ChangeNotifier{
+  String _searchQuery = '';
+  String get searchQuery => _searchQuery;
+
+  void setSearchQuery(String query) {
+    _searchQuery = query;
+    notifyListeners();
   }
 }
 
