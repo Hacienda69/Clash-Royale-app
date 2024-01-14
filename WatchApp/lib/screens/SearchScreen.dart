@@ -1,4 +1,5 @@
 import 'package:WatchApp/models/MediaFilters.dart';
+import 'package:WatchApp/screens/widgets/filterPopUpWidget.dart';
 import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:WatchApp/models/APImovies.dart';
 import 'package:WatchApp/models/APIseries.dart';
 
 class SearchScreen extends StatefulWidget {
- const SearchScreen({
+  const SearchScreen({
     super.key,
   });
 
@@ -29,9 +30,12 @@ class _SearchScreenState extends State<SearchScreen> {
     defaultSeries = Provider.of<MediaModel>(context, listen: true).seriesList;
 
     var searchMediaModel = Provider.of<SearchMediaModel>(context, listen: true);
-    filteredMovies = Filters.filterMoviesByTitle(searchMediaModel.searchQuery, defaultMovies);
-    filteredSeries = Filters.filterSeriesByTitle(searchMediaModel.searchQuery, defaultSeries);
+    filteredMovies = Filters.filterMoviesByTitle(
+        searchMediaModel.searchQuery, defaultMovies);
+    filteredSeries = Filters.filterSeriesByTitle(
+        searchMediaModel.searchQuery, defaultSeries);
 
+    //double screenWidth = MediaQuery.of(context).size.width;
     Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
     return MaterialApp(
@@ -85,14 +89,38 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-               Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   onChanged: (query) {
                     searchMediaModel.setSearchQuery(query);
                   },
-                  decoration: const InputDecoration(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
                     hintText: 'Search movies and series...',
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Colors.black,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Icon(Icons.search, color: Colors.white),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.more_vert, color: Colors.white),
+                      onPressed: () {
+                        final RenderBox renderBox = context.findRenderObject() as RenderBox;
+                        final tapPosition = renderBox.localToGlobal(Offset.zero);
+                        showPopupMenu(context, tapPosition);
+                      },
+                    ),
                   ),
                 ),
               ),

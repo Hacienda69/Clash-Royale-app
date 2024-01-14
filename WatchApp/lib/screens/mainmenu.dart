@@ -2,7 +2,6 @@ import 'package:WatchApp/main.dart';
 import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:WatchApp/screens/MyListScreen.dart';
 import 'package:WatchApp/screens/SearchScreen.dart';
 import 'package:WatchApp/models/MediaFilters.dart';

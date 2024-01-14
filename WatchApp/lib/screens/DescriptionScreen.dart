@@ -33,7 +33,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     String rating = widget.isMovie
         ? widget.media.rating.toString()
         : widget.media.rating.toString();
-    int rank = widget.isMovie ? widget.media.rank : widget.media.rank;
     int year = widget.isMovie
         ? widget.media.year
         : int.tryParse(widget.media.year) ?? 0;
@@ -43,8 +42,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
         widget.isMovie ? widget.media.genres : widget.media.genres;
     String imdbLink =
         widget.isMovie ? widget.media.imdbLink : widget.media.imdb_link;
-    String trailer =
-        widget.isMovie ? widget.media.trailer : widget.media.trailer;
 
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -99,7 +96,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
       backgroundColor: backGroundColor,
       body: ListView(
         children: [
-          Container(
+          SizedBox(
             height: 600,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
