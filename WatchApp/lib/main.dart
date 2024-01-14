@@ -94,6 +94,9 @@ class SearchMediaModel with ChangeNotifier{
   int _rankQuery = 0;
   int get rankQuery => _rankQuery;
 
+  String _ratingQuery = '';
+  String get ratingQuery => _ratingQuery;
+
   void setSearchQuery(String query) {
     _searchQuery = query;
     notifyListeners();
@@ -116,6 +119,11 @@ class SearchMediaModel with ChangeNotifier{
 
   void setRankQuery(int x){
     _rankQuery = x;
+    notifyListeners();
+  }
+
+  void setRatingQuery(String x){
+    _ratingQuery = x;
     notifyListeners();
   }
 }

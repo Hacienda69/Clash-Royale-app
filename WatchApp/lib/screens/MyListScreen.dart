@@ -1,5 +1,7 @@
+import 'dart:ui';
+
 import 'package:WatchApp/main.dart';
-import 'package:WatchApp/screens/widgets/sectionWidget.dart';
+import 'package:WatchApp/screens/widgets/mediaWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:WatchApp/screens/mainmenu.dart';
@@ -20,6 +22,10 @@ class MyListScreen extends StatelessWidget {
     Color backGroundColor = const Color.fromARGB(255, 17, 17, 17);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.mouse},
+      ),
       home: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -66,10 +72,26 @@ class MyListScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: backGroundColor,
-        body: ListView(
+        body: Column(
           children: [
-            Section(title: 'Saved Movies', list: savedMovies),
-            Section(title: 'Saved Series', list: savedSeries),
+            const MediaTypeTitle(title: "Saved Movies"),
+            Expanded(
+              child: ListView.builder(
+                itemCount: savedMovies.length,
+                itemBuilder: (context, index) {
+                  return MediaItemReduced(media: savedMovies[index]);
+                }
+              ),
+            ),
+            const MediaTypeTitle(title: "Saved Series"),
+            Expanded(
+              child: ListView.builder(
+                itemCount: savedSeries.length,
+                itemBuilder: (context, index) {
+                  return MediaItemReduced(media: savedSeries[index]);
+                }
+              ),
+            )
           ],
         ),
       ),

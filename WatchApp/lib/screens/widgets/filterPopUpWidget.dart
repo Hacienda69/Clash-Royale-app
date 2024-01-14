@@ -17,6 +17,7 @@ void showFiltersMenu(BuildContext context) {
   var searchMediaModel = Provider.of<SearchMediaModel>(context, listen: false);
   String buttonText;
   String genderQuery = '';
+  String ratingQuery = '';
   int yearQuery = 0;
   int rankQuery = 0;
 
@@ -34,6 +35,7 @@ void showFiltersMenu(BuildContext context) {
       PopupMenuItem(
         child: SizedBox(
           width: 200,
+          height: 400,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -102,14 +104,43 @@ void showFiltersMenu(BuildContext context) {
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
+              TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                onChanged: (value) {
+                  ratingQuery = value;
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Filter Rating',
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
               ElevatedButton(
                 onPressed: () {
                   searchMediaModel.setGenreQuery(genderQuery);
                   searchMediaModel.setYearQuery(yearQuery);
                   searchMediaModel.setRankQuery(rankQuery);
+                  searchMediaModel.setRatingQuery(ratingQuery);
                   Navigator.pop(context);
                 },
                 child: const Text('Apply Filters'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  searchMediaModel.setGenreQuery("");
+                  searchMediaModel.setYearQuery(0);
+                  searchMediaModel.setRankQuery(0);
+                  searchMediaModel.setRatingQuery("");
+                  Navigator.pop(context);
+                },
+                child: const Text('Reset Filters'),
               ),
             ],
           ),

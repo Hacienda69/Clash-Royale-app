@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:WatchApp/models/MediaFilters.dart';
 import 'package:WatchApp/screens/widgets/filterPopUpWidget.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
@@ -42,30 +44,41 @@ class _SearchScreenState extends State<SearchScreen> {
         searchMediaModel.searchQuery, defaultSeries);
 
     // Filter by genre
-    if(searchMediaModel.genreQuery != ''){
+    if (searchMediaModel.genreQuery != '') {
       filteredMovies = Filters.filterMoviesByGenre(
-        searchMediaModel.genreQuery, filteredMovies);
+          searchMediaModel.genreQuery, filteredMovies);
 
       filteredSeries = Filters.filterSeriesByGenre(
-        searchMediaModel.genreQuery,
-        filteredSeries);
+          searchMediaModel.genreQuery, filteredSeries);
     }
 
     // Filter by year (Only movies contain years in the api)
-    if(searchMediaModel.yearQuery != 0){
+    if (searchMediaModel.yearQuery != 0) {
       filteredMovies = Filters.filterMoviesByYear(
-        searchMediaModel.yearQuery, 
-        filteredMovies);
+          searchMediaModel.yearQuery, filteredMovies);
     }
 
     // Filter by rank
-    if(searchMediaModel.rankQuery != 0){
+    if (searchMediaModel.rankQuery != 0) {
       filteredMovies = Filters.filterMoviesByRank(
-        searchMediaModel.rankQuery, 
-        filteredMovies);
+          searchMediaModel.rankQuery, filteredMovies);
       filteredSeries = Filters.filterSeriesByRank(
-        searchMediaModel.rankQuery, 
-        filteredSeries);
+          searchMediaModel.rankQuery, filteredSeries);
+    }
+
+    // Filter by rating
+    if (searchMediaModel.ratingQuery != '') {
+      filteredMovies = Filters.filterMoviesByRating(
+          searchMediaModel.ratingQuery, filteredMovies);
+
+      double targetRating;
+      double? parsedValue = double.tryParse(searchMediaModel.ratingQuery);
+      if (parsedValue != null) {
+        targetRating = parsedValue;
+        filteredSeries = Filters.filterSeriesByRating(
+          targetRating, 
+          filteredSeries);
+      }
     }
 
     // Filter by media type
@@ -79,6 +92,10 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     return MaterialApp(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.mouse},
+      ),
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -164,10 +181,11 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: ListView.builder(
+                  scrollDirection: Axis.vertical,
                     itemCount: finalList.length,
                     itemBuilder: (context, index) {
                       return MediaItemReduced(media: finalList[index]);
-                    }),
+                    },),
               )
             ],
           ),
