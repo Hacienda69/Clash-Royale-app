@@ -140,133 +140,131 @@ class _MediaItemReducedState extends State<MediaItemReduced> {
       mediaType = "Series";
     }
 
-    return SizedBox(
-      child: InkWell(
-        key: inkWellKey,
-        onHover: (hovered) {
-          setState(() {
-            isHovered = hovered;
-          });
-        },
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DescriptionScreen(
-                media: widget.media,
-                isMovie: isMovie,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-            color: isHovered ?? false
-                ? backGroundColorHovered
-                : backGroundColorNotHovered,
-            border: const Border.symmetric(
-              vertical: BorderSide(color: Colors.black),
+    return InkWell(
+      key: inkWellKey,
+      onHover: (hovered) {
+        setState(() {
+          isHovered = hovered;
+        });
+      },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DescriptionScreen(
+              media: widget.media,
+              isMovie: isMovie,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Container(
-                        height: 85,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: DecorationImage(
-                            image: NetworkImage(image),
-                            fit: BoxFit.cover,
-                          ),
+        );
+      },
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+          color: isHovered ?? false
+              ? backGroundColorHovered
+              : backGroundColorNotHovered,
+          border: const Border.symmetric(
+            vertical: BorderSide(color: Colors.black),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Container(
+                      height: 85,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                          image: NetworkImage(image),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          mediaType,
-                          style: const TextStyle(
-                            color: Colors.yellow,
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.65,
-                          child: Text(
-                            title,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                                size: 11,
-                              ),
-                              const SizedBox(width: 2),
-                              Text(
-                                rating,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isSaved = !isSaved;
-                      if (isMovie) {
-                        if (isSaved) {
-                          savedMedia.addSavedMovie(widget.media);
-                        } else {
-                          savedMedia.substractMovie(widget.media);
-                        }
-                      } else {
-                        if (isSaved) {
-                          savedMedia.addSavedSerie(widget.media);
-                        } else {
-                          savedMedia.substractSerie(widget.media);
-                        }
-                      }
-                    });
-                  },
-                  //backgroundColor: Colors.yellow,
-                  icon: Icon(
-                    isSaved ? Icons.bookmark_added : Icons.bookmark,
-                    color: Colors.yellow,
                   ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        mediaType,
+                        style: const TextStyle(
+                          color: Colors.yellow,
+                        ),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.65,
+                        child: Text(
+                          title,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 11,
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              rating,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isSaved = !isSaved;
+                    if (isMovie) {
+                      if (isSaved) {
+                        savedMedia.addSavedMovie(widget.media);
+                      } else {
+                        savedMedia.substractMovie(widget.media);
+                      }
+                    } else {
+                      if (isSaved) {
+                        savedMedia.addSavedSerie(widget.media);
+                      } else {
+                        savedMedia.substractSerie(widget.media);
+                      }
+                    }
+                  });
+                },
+                //backgroundColor: Colors.yellow,
+                icon: Icon(
+                  isSaved ? Icons.bookmark_added : Icons.bookmark,
+                  color: Colors.yellow,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

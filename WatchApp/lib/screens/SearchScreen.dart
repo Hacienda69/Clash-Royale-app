@@ -139,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: ListView.builder(
                   itemCount: finalList.length,
                   itemBuilder: (context, index) {
-                    return Center(child: MediaItemReduced(media: finalList[index]));
+                    return MediaItemReduced(media: finalList[index]);
                   }
                 ),
               )
