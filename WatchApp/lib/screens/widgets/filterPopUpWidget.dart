@@ -1,9 +1,11 @@
 import 'package:WatchApp/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void showFiltersMenu(BuildContext context) {
-  final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+  final RenderBox overlay =
+      Overlay.of(context).context.findRenderObject() as RenderBox;
   final RelativeRect position = RelativeRect.fromRect(
     Rect.fromPoints(
       const Offset(0, 0),
@@ -12,13 +14,16 @@ void showFiltersMenu(BuildContext context) {
     Offset.zero & overlay.size,
   );
 
-  String onlyMoviesLabel;
-  String genderQuery = '';
   var searchMediaModel = Provider.of<SearchMediaModel>(context, listen: false);
+  String buttonText;
+  String genderQuery = '';
+  int yearQuery = 0;
+  int rankQuery = 0;
+
   if (searchMediaModel.onlyMovies) {
-    onlyMoviesLabel = "Series";
+    buttonText = "Series";
   } else {
-    onlyMoviesLabel = "Movies";
+    buttonText = "Movies";
   }
 
   showMenu(
@@ -30,20 +35,21 @@ void showFiltersMenu(BuildContext context) {
         child: SizedBox(
           width: 200,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextButton(
+              ElevatedButton(
                 onPressed: () {
                   searchMediaModel.setOnlyMovies(!searchMediaModel.onlyMovies);
+                  Navigator.pop(context);
                 },
-                child: Text(onlyMoviesLabel),
+                child: Text(buttonText),
               ),
-              const SizedBox(height: 10),
               TextField(
                 onChanged: (value) {
                   genderQuery = value;
                 },
                 decoration: const InputDecoration(
-                  labelText: 'Enter Genre',
+                  labelText: 'Filter Genre',
                   labelStyle: TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
@@ -54,10 +60,53 @@ void showFiltersMenu(BuildContext context) {
                 ),
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                onChanged: (value) {
+                  int? parsedValue = int.tryParse(value);
+                  if (parsedValue != null) {
+                    yearQuery = parsedValue;
+                  }
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Filter Year',
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+              TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                onChanged: (value) {
+                  int? parsedValue = int.tryParse(value);
+                  if (parsedValue != null) {
+                    rankQuery = parsedValue;
+                  }
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Filter Rank',
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
               ElevatedButton(
                 onPressed: () {
                   searchMediaModel.setGenreQuery(genderQuery);
+                  searchMediaModel.setYearQuery(yearQuery);
+                  searchMediaModel.setRankQuery(rankQuery);
                   Navigator.pop(context);
                 },
                 child: const Text('Apply Filters'),

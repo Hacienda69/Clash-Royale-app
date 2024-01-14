@@ -1,7 +1,6 @@
 import 'package:WatchApp/models/MediaFilters.dart';
 import 'package:WatchApp/screens/widgets/filterPopUpWidget.dart';
 import 'package:WatchApp/screens/widgets/mediaWidget.dart';
-import 'package:WatchApp/screens/widgets/sectionWidget.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:WatchApp/main.dart';
@@ -42,6 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
     filteredSeries = Filters.filterSeriesByTitle(
         searchMediaModel.searchQuery, defaultSeries);
 
+    // Filter by genre
     if(searchMediaModel.genreQuery != ''){
       filteredMovies = Filters.filterMoviesByGenre(
         searchMediaModel.genreQuery, filteredMovies);
@@ -51,6 +51,24 @@ class _SearchScreenState extends State<SearchScreen> {
         filteredSeries);
     }
 
+    // Filter by year (Only movies contain years in the api)
+    if(searchMediaModel.yearQuery != 0){
+      filteredMovies = Filters.filterMoviesByYear(
+        searchMediaModel.yearQuery, 
+        filteredMovies);
+    }
+
+    // Filter by rank
+    if(searchMediaModel.rankQuery != 0){
+      filteredMovies = Filters.filterMoviesByRank(
+        searchMediaModel.rankQuery, 
+        filteredMovies);
+      filteredSeries = Filters.filterSeriesByRank(
+        searchMediaModel.rankQuery, 
+        filteredSeries);
+    }
+
+    // Filter by media type
     String hintText;
     if (searchMediaModel.onlyMovies) {
       finalList = filteredMovies;

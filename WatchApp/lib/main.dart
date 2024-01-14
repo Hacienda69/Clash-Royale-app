@@ -91,6 +91,9 @@ class SearchMediaModel with ChangeNotifier{
   int _yearQuery = 0;
   int get yearQuery => _yearQuery;
 
+  int _rankQuery = 0;
+  int get rankQuery => _rankQuery;
+
   void setSearchQuery(String query) {
     _searchQuery = query;
     notifyListeners();
@@ -103,6 +106,16 @@ class SearchMediaModel with ChangeNotifier{
 
   void setGenreQuery(String x){
     _genreQuery = x;
+    notifyListeners();
+  }
+
+  void setYearQuery(int x){
+    _yearQuery = x;
+    notifyListeners();
+  }
+
+  void setRankQuery(int x){
+    _rankQuery = x;
     notifyListeners();
   }
 }
